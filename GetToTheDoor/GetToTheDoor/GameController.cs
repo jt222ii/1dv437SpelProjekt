@@ -89,6 +89,10 @@ namespace GetToTheDoor
                     charModel.moveLeft();
                 }
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                charModel.jump();
+            }
             charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
             base.Update(gameTime);
         }

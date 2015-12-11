@@ -15,7 +15,7 @@ namespace GetToTheDoor.Model
         Vector2 acceleration = new Vector2(0f, baseGravity);
         float moveSpeed = 5f;
         //x radius, y radius
-        Vector2 characterSize = new Vector2(0.8f, 0.8f);
+        Vector2 characterSize = new Vector2(0.4f, 0.4f);
 
         public MainCharacterModel()
         {
@@ -58,7 +58,10 @@ namespace GetToTheDoor.Model
         }
         public void jump()
         {
-            
+            if (velocity.Y == 0)
+            {
+                velocity.Y = -5f;
+            }
         }
 
         public void Collision()
