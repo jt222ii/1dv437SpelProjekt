@@ -51,7 +51,18 @@ namespace GetToTheDoor
         {
             foreach(Tile tile in tiles)
             {
-                if(tile.collidesWithTile(charModel))
+                if(tile.landsOnTile(charModel))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool lookForCollisionHead(MainCharacterModel charModel)
+        {
+            foreach (Tile tile in tiles)
+            {
+                if (tile.hitsHeadOnTile(charModel))
                 {
                     return true;
                 }

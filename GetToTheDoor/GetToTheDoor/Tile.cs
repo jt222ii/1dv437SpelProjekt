@@ -48,15 +48,33 @@ namespace GetToTheDoor
             return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height);
         }
 
-        public bool collidesWithTile(MainCharacterModel charModel)
+        public bool landsOnTile(MainCharacterModel charModel)
         {
             float minX, maxX, minY, maxY;
             minX = position.X-tileSize.X/2;
             maxX = position.X + tileSize.X / 2;
             minY = position.Y - tileSize.Y / 2;
             maxY = position.Y + tileSize.Y / 2;
-            return (charModel.Position.X > minX && charModel.Position.X < maxX && charModel.Position.Y + charModel.getSize.Y > minY && charModel.Position.Y - charModel.getSize.Y < minY);
+            return 
+                (
+                charModel.Position.X > minX && charModel.Position.X < maxX && 
+                charModel.Position.Y + charModel.getSize.Y > minY && 
+                charModel.Position.Y - charModel.getSize.Y < minY
+                );
         }
-
+        public bool hitsHeadOnTile(MainCharacterModel charModel)
+        {
+            float minX, maxX, minY, maxY;
+            minX = position.X - tileSize.X / 2;
+            maxX = position.X + tileSize.X / 2;
+            minY = position.Y - tileSize.Y / 2;
+            maxY = position.Y + tileSize.Y / 2;
+            return
+                (
+                charModel.Position.X > minX && charModel.Position.X < maxX &&
+                charModel.Position.Y + charModel.getSize.Y > minY &&
+                charModel.Position.Y - charModel.getSize.Y < maxY
+                );
+        }
     }
 }

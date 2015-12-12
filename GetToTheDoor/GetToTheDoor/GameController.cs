@@ -23,8 +23,11 @@ namespace GetToTheDoor
         public GameController()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            //graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
@@ -102,6 +105,10 @@ namespace GetToTheDoor
             if(tileSystem.lookForCollision(charModel))
             {
                 charModel.landOnTile();
+            }
+            else if (tileSystem.lookForCollisionHead(charModel))
+            {
+                charModel.hitHeadOnTile();
             }
             else
             {

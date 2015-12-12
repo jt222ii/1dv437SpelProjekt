@@ -103,8 +103,17 @@ namespace GetToTheDoor.Model
 
         public void landOnTile()
         {
-            velocity.Y = 0;
             acceleration.Y = 0;
+            velocity.Y = 0;
+        }
+        public void hitHeadOnTile()
+        {
+            velocity.Y = -velocity.Y*0.5f;
+        }
+        public void hitX()
+        {
+            Console.WriteLine("ah");
+            velocity.X = 0;
         }
         public void fall()
         {
