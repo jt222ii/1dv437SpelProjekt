@@ -14,20 +14,23 @@ namespace GetToTheDoor.View
         MainCharacterModel characterModel;
         Vector2 textureCenter;
         Camera camera;
+        Vector2 scale;
         public MainCharacterView(Texture2D character, MainCharacterModel mainModel, Camera _camera)
         {
             characterTexture = character;
             characterModel = mainModel;
             camera = _camera;
             textureCenter = new Vector2(characterTexture.Width / 2, characterTexture.Height / 2);
+            Vector2 size = characterModel.getSize * 2;
+            scale = camera.Scale(size, characterTexture.Width, characterTexture.Height);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 size = characterModel.getSize*2;
-            Vector2 scale = camera.Scale(size, characterTexture.Width, characterTexture.Height);
-            Vector2 characterVisualLocation = camera.convertToVisualCoords(characterModel.getPosition);
+            Vector2 characterVisualLocation = camera.convertToVisualCoords(characterModel.Position);
             spriteBatch.Draw(characterTexture, characterVisualLocation, null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
         }
+
+
     }
 }

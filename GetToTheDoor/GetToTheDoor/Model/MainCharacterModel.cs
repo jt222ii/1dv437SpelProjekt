@@ -13,13 +13,14 @@ namespace GetToTheDoor.Model
         Vector2 velocity;
         static float baseGravity = 7f;
         Vector2 acceleration = new Vector2(0f, baseGravity);
-        float moveSpeed = 5f;
+        float moveSpeed = 3f;
         //x radius, y radius
-        Vector2 characterSize = new Vector2(0.4f, 0.4f);
+        Vector2 characterSize = new Vector2(0.25f, 0.25f);
+        TileSystem tileSystem;
 
-        public MainCharacterModel()
+        public MainCharacterModel(TileSystem _tileSystem)
         {
-
+            tileSystem = _tileSystem;
         }
         public Vector2 getSize
         {
@@ -28,9 +29,19 @@ namespace GetToTheDoor.Model
                 return characterSize;
             }
         }
+        public Vector2 Velocity
+        {
+            get
+            {
+                return velocity;
+            }
+            set
+            {
+                velocity = value;
+            }
+        }
         public void Update(float elapsedTime)
         {
-            
             velocity = elapsedTime * acceleration + velocity;
             position = elapsedTime * velocity + position;
             Collision();
@@ -66,7 +77,6 @@ namespace GetToTheDoor.Model
 
         public void Collision()
         {
-            Console.WriteLine(position);
             if (position.X + characterSize.X >= 16)
             {
                 position.X = 16 - characterSize.X;
@@ -77,25 +87,28 @@ namespace GetToTheDoor.Model
                 position.X = 0 + characterSize.X;
                 velocity.X = 0;
             }
-            if (position.Y + characterSize.Y >= 9)
-            {
-                position.Y = 9 - characterSize.Y;
-                velocity.Y = 0;
-                acceleration.Y = 0;
-            }
-            else if(acceleration.Y == 0)
-            {
-                acceleration.Y = baseGravity;
-            }
-
         }
 
-        public Vector2 getPosition
+        public Vector2 Position
         {
             get
             {
                 return position;
             }
+            set
+            {
+                Position = value;
+            }
+        }
+
+        public void landOnTile()
+        {
+            velocity.Y = 0;
+            acceleration.Y = 0;
+        }
+        public void fall()
+        {
+            acceleration.Y = baseGravity;
         }
     }
 }

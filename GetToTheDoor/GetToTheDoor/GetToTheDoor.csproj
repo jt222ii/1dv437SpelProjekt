@@ -45,6 +45,8 @@
     <Compile Include="Model\MainCharacterModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tile.cs" />
+    <Compile Include="TileSystem.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\MainCharacterView.cs" />
   </ItemGroup>
@@ -56,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\1_043.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Ethan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

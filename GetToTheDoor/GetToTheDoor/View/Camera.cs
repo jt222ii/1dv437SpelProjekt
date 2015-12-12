@@ -23,17 +23,11 @@ namespace GetToTheDoor.View
             float visualY = coords.Y * (windowSizeY/9);
             return new Vector2(visualX, visualY);
         }
-        public Vector2 convertMousePosToLogicalCoords(Vector2 visualCoords)
+        public Vector2 convertToLogicalCoords(Vector2 visualCoords)
         {
-            float logicalX = (visualCoords.X) / windowSizeX;
-            float logicalY = (visualCoords.Y) / windowSizeY;
+            float logicalX = (visualCoords.X)*16 / windowSizeX;
+            float logicalY = (visualCoords.Y)*9 / windowSizeY;
             return new Vector2(logicalX, logicalY);
-        }
-
-        public Vector2 centerTextureAtMouse(Texture2D texture, Vector2 scale)
-        {
-            var mouseState = Mouse.GetState();
-            return new Vector2(mouseState.X - texture.Width / 2 * scale.Y, mouseState.Y - texture.Height / 2 * scale.X);
         }
 
         public Vector2 Scale(Vector2 size, float texturewidth, float textureheight)

@@ -11,6 +11,9 @@ namespace GetToTheDoor
     /// </summary>
     public class GameController : Game
     {
+        //Rectangle _rectangle1, _rectangle2, _rectangle3;
+        TileSystem tileSystem;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D mainCharacter;
@@ -45,11 +48,13 @@ namespace GetToTheDoor
         /// </summary>
         protected override void LoadContent()
         {
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
+            tileSystem = new TileSystem(Content, camera);
             mainCharacter = Content.Load<Texture2D>("ethan2");
-            charModel = new MainCharacterModel();
+            charModel = new MainCharacterModel(tileSystem);
             charView = new MainCharacterView(mainCharacter, charModel, camera);
             // TODO: use this.Content to load your game content here
         }
@@ -94,6 +99,14 @@ namespace GetToTheDoor
                 charModel.jump();
             }
             charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if(tileSystem.lookForCollision(charModel))
+            {
+                charModel.landOnTile();
+            }
+            else
+            {
+                charModel.fall();
+            }
             base.Update(gameTime);
         }
 
@@ -105,6 +118,7 @@ namespace GetToTheDoor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            tileSystem.drawTiles(spriteBatch);
             charView.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
