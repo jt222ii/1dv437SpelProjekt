@@ -34,7 +34,13 @@ namespace GetToTheDoor
             Vector2 pos = position;
             spriteBatch.Draw(texture, camera.convertToVisualCoords(pos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
         }
-
+        public Vector2 Size
+        {
+            get
+            {
+                return tileSize;
+            }
+        }
         public Vector2 Position
         {
             get
@@ -74,6 +80,21 @@ namespace GetToTheDoor
                 charModel.Position.X > minX && charModel.Position.X < maxX &&
                 charModel.Position.Y + charModel.getSize.Y > minY &&
                 charModel.Position.Y - charModel.getSize.Y < maxY
+                );
+        }
+
+        public bool collisionX(MainCharacterModel charModel)
+        {
+            float minX, maxX, minY, maxY;
+            minX = position.X - tileSize.X / 2;
+            maxX = position.X + tileSize.X / 2;
+            minY = position.Y - tileSize.Y / 2;
+            maxY = position.Y + tileSize.Y / 2;
+            return
+                (
+                charModel.Position.Y > minY && charModel.Position.Y < maxY &&
+                charModel.Position.X + charModel.getSize.X > minX &&
+                charModel.Position.X - charModel.getSize.X < maxX
                 );
         }
     }

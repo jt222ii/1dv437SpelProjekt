@@ -56,7 +56,7 @@ namespace GetToTheDoor
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             tileSystem = new TileSystem(Content, camera);
-            mainCharacter = Content.Load<Texture2D>("ethan2");
+            mainCharacter = Content.Load<Texture2D>("ethan");
             charModel = new MainCharacterModel(tileSystem);
             charView = new MainCharacterView(mainCharacter, charModel, camera);
             // TODO: use this.Content to load your game content here
@@ -114,6 +114,12 @@ namespace GetToTheDoor
             {
                 charModel.fall();
             }
+            Tile collidedTile = tileSystem.lookForCollisionX(charModel);
+            if (collidedTile != null)
+            {
+                charModel.hitX(collidedTile);
+            }
+
             base.Update(gameTime);
         }
 

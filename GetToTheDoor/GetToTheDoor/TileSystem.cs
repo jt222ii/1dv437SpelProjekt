@@ -69,6 +69,17 @@ namespace GetToTheDoor
             }
             return false;
         }
+        public Tile lookForCollisionX(MainCharacterModel charModel)
+        {
+            foreach (Tile tile in tiles)
+            {
+                if (tile.collisionX(charModel))
+                {
+                    return tile;
+                }
+            }
+            return null;
+        }
 
     }
 }

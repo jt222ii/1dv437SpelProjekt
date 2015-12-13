@@ -110,10 +110,16 @@ namespace GetToTheDoor.Model
         {
             velocity.Y = -velocity.Y*0.5f;
         }
-        public void hitX()
+        public void hitX(Tile tile)
         {
-            Console.WriteLine("ah");
-            velocity.X = 0;
+            if (position.X-tile.Position.X > 0)
+            {
+                position.X = tile.Position.X + tile.Size.X;
+            }
+            else if (position.X - tile.Position.X < 0)
+            {
+                position.X = tile.Position.X - tile.Size.X;
+            }
         }
         public void fall()
         {
