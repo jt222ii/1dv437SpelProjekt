@@ -76,6 +76,7 @@ namespace GetToTheDoor
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        int test = 0;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -102,22 +103,26 @@ namespace GetToTheDoor
                 charModel.jump();
             }
             charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-            if(tileSystem.lookForCollision(charModel))
+
+            Tile landedOnTile = tileSystem.landsOnTile(charModel);
+            if (landedOnTile != null)
             {
-                charModel.landOnTile();
-            }
-            else if (tileSystem.lookForCollisionHead(charModel))
-            {
-                charModel.hitHeadOnTile();
+                charModel.landOnTile(landedOnTile);
+                test++;
             }
             else
             {
                 charModel.fall();
             }
+            if (tileSystem.lookForCollisionHead(charModel))
+            {
+                charModel.hitHeadOnTile();
+            }
+
             Tile collidedTile = tileSystem.lookForCollisionX(charModel);
             if (collidedTile != null)
             {
-                charModel.hitX(collidedTile);
+                charModel.collideX(collidedTile);
             }
 
             base.Update(gameTime);

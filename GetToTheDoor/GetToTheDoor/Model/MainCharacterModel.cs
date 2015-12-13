@@ -9,7 +9,7 @@ namespace GetToTheDoor.Model
 {
     class MainCharacterModel
     {
-        Vector2 position = new Vector2(8f, 4.5f);
+        Vector2 position = new Vector2(8f, 2f);
         Vector2 velocity;
         static float baseGravity = 7f;
         Vector2 acceleration = new Vector2(0f, baseGravity);
@@ -101,8 +101,9 @@ namespace GetToTheDoor.Model
             }
         }
 
-        public void landOnTile()
+        public void landOnTile(Tile tile)
         {
+            position.Y = tile.Position.Y - tile.Size.Y; //if you somehow manage to land inside a tile you get moved up. Only happens when you hit it diagonally in a specific angle and place
             acceleration.Y = 0;
             velocity.Y = 0;
         }
@@ -110,7 +111,7 @@ namespace GetToTheDoor.Model
         {
             velocity.Y = -velocity.Y*0.5f;
         }
-        public void hitX(Tile tile)
+        public void collideX(Tile tile)
         {
             if (position.X-tile.Position.X > 0)
             {

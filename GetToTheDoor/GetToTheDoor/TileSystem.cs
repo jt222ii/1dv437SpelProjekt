@@ -21,13 +21,18 @@ namespace GetToTheDoor
             {
                 tiles.Add(new Tile(content, camera, new Vector2(tileSize/2 + 0.5f*i, 8.5f), tileSize));
             }
-            for (int i = 10; i < 15; i++)
+            for (int i = 10; i < 14; i++)
             {
                 tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + 0.5f * i, 7f), tileSize));
             }
             for (int i = 0; i < 5; i++)
             {
                 tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + 0.5f * i, 4f+0.5f*i), tileSize));
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                tiles.Add(new Tile(content, camera, new Vector2(8f, 6f + 0.5f * i), tileSize));
             }
         }
 
@@ -47,16 +52,16 @@ namespace GetToTheDoor
             }
         }
 
-        public bool lookForCollision(MainCharacterModel charModel)
+        public Tile landsOnTile(MainCharacterModel charModel)
         {
             foreach(Tile tile in tiles)
             {
                 if(tile.landsOnTile(charModel))
                 {
-                    return true;
+                    return tile;
                 }
             }
-            return false;
+            return null;
         }
         public bool lookForCollisionHead(MainCharacterModel charModel)
         {
