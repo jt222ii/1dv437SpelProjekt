@@ -17,6 +17,7 @@ namespace GetToTheDoor.Model
         //x radius, y radius
         Vector2 characterSize = new Vector2(0.25f, 0.25f);
         TileSystem tileSystem;
+        bool hasKey = false;
 
         public MainCharacterModel(TileSystem _tileSystem)
         {
@@ -27,6 +28,17 @@ namespace GetToTheDoor.Model
             get
             {
                 return characterSize;
+            }
+        }
+        public bool HasKey
+        {
+            get
+            {
+                return hasKey;
+            }
+            set
+            {
+                hasKey = value;
             }
         }
         public Vector2 Velocity

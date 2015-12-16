@@ -13,10 +13,14 @@ namespace GetToTheDoor
     class TileSystem
     {
         List<Tile> tiles = new List<Tile>();
+        Key key;
+        Door door;
         float tileSize = 0.5f;
 
         public TileSystem(ContentManager content, Camera camera)
         {
+            key = new Key(content, camera, new Vector2(tileSize/2, 3.5f), tileSize);
+            door = new Door(content, camera, new Vector2(8f, 5.5f), tileSize);
             for (int i = 0; i < 10; i++)
             {
                 tiles.Add(new Tile(content, camera, new Vector2(tileSize/2 + 0.5f*i, 8.5f), tileSize));
@@ -38,18 +42,33 @@ namespace GetToTheDoor
 
         public void drawTiles(SpriteBatch spriteBatch)
         {
+            if (key != null)
+            {
+                key.Draw(spriteBatch);
+            }
+            door.Draw(spriteBatch);
             foreach(Tile tile in tiles)
             {
                 tile.Draw(spriteBatch);
             }
         }
 
-        public List<Tile> getTiles
+        public bool playerGetsTheKey(MainCharacterModel charModel)
         {
-            get
+            if (key != null)
             {
-                return tiles;
+                if (key.collides(charModel))
+                {
+                    key = null;
+                    return true;
+                }
             }
+            return false;
+        }
+
+        public bool playerWantsToGoThroughDoor(MainCharacterModel charModel)
+        {
+            return door.collidesAndUnlocks(charModel);
         }
 
         public Tile landsOnTile(MainCharacterModel charModel)

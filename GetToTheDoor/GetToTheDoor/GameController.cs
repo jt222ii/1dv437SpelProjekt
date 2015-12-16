@@ -12,7 +12,7 @@ namespace GetToTheDoor
     public class GameController : Game
     {
         //Rectangle _rectangle1, _rectangle2, _rectangle3;
-        TileSystem tileSystem;
+        TileSystem mapSystem;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -55,9 +55,9 @@ namespace GetToTheDoor
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            tileSystem = new TileSystem(Content, camera);
+            mapSystem = new TileSystem(Content, camera);
             mainCharacter = Content.Load<Texture2D>("ethan");
-            charModel = new MainCharacterModel(tileSystem);
+            charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(mainCharacter, charModel, camera);
             // TODO: use this.Content to load your game content here
         }
@@ -104,7 +104,7 @@ namespace GetToTheDoor
             }
             charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            Tile landedOnTile = tileSystem.landsOnTile(charModel);
+            Tile landedOnTile = mapSystem.landsOnTile(charModel);
             if (landedOnTile != null)
             {
                 charModel.landOnTile(landedOnTile);
@@ -114,17 +114,22 @@ namespace GetToTheDoor
             {
                 charModel.fall();
             }
-            if (tileSystem.lookForCollisionHead(charModel))
+            if (mapSystem.lookForCollisionHead(charModel))
             {
                 charModel.hitHeadOnTile();
             }
 
-            Tile collidedTile = tileSystem.lookForCollisionX(charModel);
+            Tile collidedTile = mapSystem.lookForCollisionX(charModel);
             if (collidedTile != null)
             {
                 charModel.collideX(collidedTile);
             }
 
+            if(mapSystem.playerGetsTheKey(charModel))
+            {
+                charModel.HasKey = true;
+            }
+            mapSystem.playerWantsToGoThroughDoor(charModel);
             base.Update(gameTime);
         }
 
@@ -136,7 +141,7 @@ namespace GetToTheDoor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            tileSystem.drawTiles(spriteBatch);
+            mapSystem.drawTiles(spriteBatch);
             charView.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
