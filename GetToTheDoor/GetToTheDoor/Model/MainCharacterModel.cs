@@ -15,12 +15,13 @@ namespace GetToTheDoor.Model
         Vector2 acceleration = new Vector2(0f, baseGravity);
         float moveSpeed = 3f;
         //x radius, y radius
-        Vector2 characterSize = new Vector2(0.25f, 0.25f);
+        Vector2 characterSize = new Vector2(0.5f, 0.5f);
         TileSystem tileSystem;
         bool hasKey = false;
 
-        public MainCharacterModel(TileSystem _tileSystem)
+        public MainCharacterModel(TileSystem _tileSystem, float gameScale)
         {
+            characterSize *= gameScale;
             tileSystem = _tileSystem;
         }
         public Vector2 getSize

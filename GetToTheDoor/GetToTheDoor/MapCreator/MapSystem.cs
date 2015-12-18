@@ -1,4 +1,5 @@
-﻿using GetToTheDoor.Model;
+﻿using GetToTheDoor.MapCreator;
+using GetToTheDoor.Model;
 using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,31 +13,47 @@ namespace GetToTheDoor
 {
     class TileSystem
     {
+        ContentManager content;
+        Camera camera;
         List<Tile> tiles = new List<Tile>();
         Key key;
         Door door;
-        float tileSize = 0.5f;
+        float tileSize = 1f;
 
-        public TileSystem(ContentManager content, Camera camera)
+        List<char[,]> levels = new List<char[,]>();
+
+        public TileSystem(ContentManager _content, Camera _camera, float gameScale)
         {
-            key = new Key(content, camera, new Vector2(tileSize/2, 3.5f), tileSize);
-            door = new Door(content, camera, new Vector2(8f, 5.5f), tileSize);
-            for (int i = 0; i < 10; i++)
-            {
-                tiles.Add(new Tile(content, camera, new Vector2(tileSize/2 + 0.5f*i, 8.5f), tileSize));
-            }
-            for (int i = 10; i < 14; i++)
-            {
-                tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + 0.5f * i, 7f), tileSize));
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + 0.5f * i, 4f+0.5f*i), tileSize));
-            }
+            tileSize *= gameScale;
+            content = _content;
+            camera = _camera;
+            LevelCreator levelCreator = new LevelCreator();
+            levels = levelCreator.getLevels();
+            loadLevel(0);
+        }
 
-            for (int i = 0; i < 5; i++)
+        public void loadLevel(int level)
+        {
+            for (int i = 0; i < levels[level].GetLength(1); i++)
             {
-                tiles.Add(new Tile(content, camera, new Vector2(8f, 6f + 0.5f * i), tileSize));
+                for (int y = 0; y < levels[level].GetLength(0); y++)
+                {
+                    
+                    
+                    if (levels[level][y, i] == '#')
+                    {
+                        tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
+                    }
+                    else if (levels[level][y, i] == 'D')
+                    {
+                        door = new Door(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
+                    }
+                    else if (levels[level][y, i] == 'K')
+                    {
+                        key = new Key(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
+                    }
+                
+                }
             }
         }
 
