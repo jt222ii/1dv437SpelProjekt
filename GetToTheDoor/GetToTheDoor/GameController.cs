@@ -114,12 +114,12 @@ namespace GetToTheDoor
             {
                 charModel.fall();
             }
-            if (mapSystem.lookForCollisionHead(charModel))
+            if (mapSystem.hitsHeadOnTile(charModel))
             {
                 charModel.hitHeadOnTile();
             }
 
-            Tile collidedTile = mapSystem.lookForCollisionX(charModel);
+            Tile collidedTile = mapSystem.hitsTileOnX(charModel);
             if (collidedTile != null)
             {
                 charModel.collideX(collidedTile);

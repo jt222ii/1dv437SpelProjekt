@@ -99,7 +99,7 @@ namespace GetToTheDoor
             }
             return null;
         }
-        public bool lookForCollisionHead(MainCharacterModel charModel)
+        public bool hitsHeadOnTile(MainCharacterModel charModel)
         {
             foreach (Tile tile in tiles)
             {
@@ -110,7 +110,7 @@ namespace GetToTheDoor
             }
             return false;
         }
-        public Tile lookForCollisionX(MainCharacterModel charModel)
+        public Tile hitsTileOnX(MainCharacterModel charModel)
         {
             foreach (Tile tile in tiles)
             {
