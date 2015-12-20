@@ -16,12 +16,12 @@ namespace GetToTheDoor.Model
         float moveSpeed = 3f;
         //x radius, y radius
         Vector2 characterSize = new Vector2(0.5f, 0.5f);
-        TileSystem tileSystem;
+        MapSystem tileSystem;
         bool hasKey = false;
+        bool isJumping = false;
 
-        public MainCharacterModel(TileSystem _tileSystem, float gameScale)
+        public MainCharacterModel(MapSystem _tileSystem)
         {
-            characterSize *= gameScale;
             tileSystem = _tileSystem;
         }
         public Vector2 getSize
@@ -82,9 +82,10 @@ namespace GetToTheDoor.Model
         }
         public void jump()
         {
-            if (velocity.Y == 0)
+            if (!isJumping)
             {
-                velocity.Y = -5f;
+                velocity.Y = -4f;
+                isJumping = true;
             }
         }
 
@@ -92,12 +93,12 @@ namespace GetToTheDoor.Model
         {
             if (position.X + characterSize.X >= 16)
             {
-                position.X = 16 - characterSize.X;
+                position.X = 16 - characterSize.X/2;
                 velocity.X = 0;
             }
             else if (position.X - characterSize.X <= 0)
             {
-                position.X = 0 + characterSize.X;
+                position.X = 0 + characterSize.X/2;
                 velocity.X = 0;
             }
         }
@@ -116,7 +117,9 @@ namespace GetToTheDoor.Model
 
         public void landOnTile(Tile tile)
         {
-            position.Y = tile.Position.Y - tile.Size.Y; //if you somehow manage to land inside a tile you get moved up. Only happens when you hit it diagonally in a specific angle and place
+            Console.WriteLine(characterSize.Y +"tile:_ " + tile.Size.Y);
+            position.Y = tile.Position.Y - (tile.Size.Y/2 + characterSize.Y/2);
+            isJumping = false;
             acceleration.Y = 0;
             velocity.Y = 0;
         }
@@ -128,11 +131,11 @@ namespace GetToTheDoor.Model
         {
             if (position.X-tile.Position.X > 0)
             {
-                position.X = tile.Position.X + tile.Size.X;
+                position.X = tile.Position.X + (tile.Size.X / 2 + characterSize.X / 2);
             }
             else if (position.X - tile.Position.X < 0)
             {
-                position.X = tile.Position.X - tile.Size.X;
+                position.X = tile.Position.X - (tile.Size.X / 2 + characterSize.X / 2);
             }
         }
         public void fall()

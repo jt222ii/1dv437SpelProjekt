@@ -11,20 +11,19 @@ using System.Text;
 
 namespace GetToTheDoor
 {
-    class TileSystem
+    class MapSystem
     {
         ContentManager content;
         Camera camera;
         List<Tile> tiles = new List<Tile>();
         Key key;
         Door door;
-        float tileSize = 1f;
+        float tileSize = 0.5f;
 
         List<char[,]> levels = new List<char[,]>();
 
-        public TileSystem(ContentManager _content, Camera _camera, float gameScale)
+        public MapSystem(ContentManager _content, Camera _camera)
         {
-            tileSize *= gameScale;
             content = _content;
             camera = _camera;
             LevelCreator levelCreator = new LevelCreator();

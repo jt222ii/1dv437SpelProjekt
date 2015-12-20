@@ -59,8 +59,8 @@ namespace GetToTheDoor
             return 
                 (
                 charModel.Position.X > minX && charModel.Position.X < maxX && 
-                charModel.Position.Y + charModel.getSize.Y > minY && 
-                charModel.Position.Y - charModel.getSize.Y < minY
+                charModel.Position.Y + charModel.getSize.Y / 2 > minY && 
+                charModel.Position.Y - charModel.getSize.Y / 2 < minY
                 );
         }
         public bool hitsHeadOnTile(MainCharacterModel charModel)
@@ -73,8 +73,8 @@ namespace GetToTheDoor
             return
                 (
                 charModel.Position.X > minX && charModel.Position.X < maxX &&
-                charModel.Position.Y + charModel.getSize.Y > minY &&
-                charModel.Position.Y - charModel.getSize.Y < maxY
+                charModel.Position.Y + charModel.getSize.Y / 2 > minY &&
+                charModel.Position.Y - charModel.getSize.Y / 2 < maxY
                 );
         }
 
@@ -88,8 +88,8 @@ namespace GetToTheDoor
             return
                 (
                 charModel.Position.Y > minY && charModel.Position.Y < maxY &&
-                charModel.Position.X + charModel.getSize.X > minX &&
-                charModel.Position.X - charModel.getSize.X < maxX
+                charModel.Position.X + charModel.getSize.X / 2 > minX &&
+                charModel.Position.X - charModel.getSize.X / 2 < maxX
                 );
         }
     }

@@ -21,7 +21,7 @@ namespace GetToTheDoor.View
             characterModel = mainModel;
             camera = _camera;
             textureCenter = new Vector2(characterTexture.Width / 2, characterTexture.Height / 2);
-            Vector2 size = characterModel.getSize * 2;
+            Vector2 size = characterModel.getSize;
             scale = camera.Scale(size, characterTexture.Width, characterTexture.Height);
         }
 

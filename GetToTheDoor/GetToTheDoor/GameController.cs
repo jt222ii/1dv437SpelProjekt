@@ -11,12 +11,11 @@ namespace GetToTheDoor
     /// </summary>
     public class GameController : Game
     {
-        static float scale = 0.5f; // if this is changed the levels need to be changed to fit the new size
-        TileSystem mapSystem;
+        MapSystem mapSystem;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D mainCharacter;
+        Texture2D mainCharacter, turretLeft;
         MainCharacterModel charModel;
         MainCharacterView charView;
         Camera camera;
@@ -55,9 +54,10 @@ namespace GetToTheDoor
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            mapSystem = new TileSystem(Content, camera, scale);
+            mapSystem = new MapSystem(Content, camera);
             mainCharacter = Content.Load<Texture2D>("ethan");
-            charModel = new MainCharacterModel(mapSystem, scale);
+            turretLeft = Content.Load<Texture2D>("TurretLeft");
+            charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(mainCharacter, charModel, camera);
             // TODO: use this.Content to load your game content here
         }
@@ -143,6 +143,8 @@ namespace GetToTheDoor
             spriteBatch.Begin();
             mapSystem.drawTiles(spriteBatch);
             charView.Draw(spriteBatch);
+
+            spriteBatch.Draw(turretLeft, camera.convertToVisualCoords(new Vector2(14f, 8f)), null, Color.White, 0, new Vector2(turretLeft.Width / 2, turretLeft.Height / 2), 1f, SpriteEffects.None, 1f);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
