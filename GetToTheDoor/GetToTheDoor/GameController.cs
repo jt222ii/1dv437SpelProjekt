@@ -83,6 +83,7 @@ namespace GetToTheDoor
                 Exit();
 
             // TODO: Add your update logic here
+            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds);
             if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
             {
                 charModel.stopMoving();
@@ -139,12 +140,10 @@ namespace GetToTheDoor
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.SlateGray);
             spriteBatch.Begin();
             mapSystem.drawTiles(spriteBatch);
-            charView.Draw(spriteBatch);
-
-            spriteBatch.Draw(turretLeft, camera.convertToVisualCoords(new Vector2(14f, 8f)), null, Color.White, 0, new Vector2(turretLeft.Width / 2, turretLeft.Height / 2), 1f, SpriteEffects.None, 1f);
+            charView.Draw(spriteBatch);        
             spriteBatch.End();
             // TODO: Add your drawing code here
 

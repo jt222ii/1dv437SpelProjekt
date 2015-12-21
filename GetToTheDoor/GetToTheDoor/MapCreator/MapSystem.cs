@@ -1,4 +1,5 @@
 ﻿using GetToTheDoor.MapCreator;
+using GetToTheDoor.MapCreator.Hazards;
 using GetToTheDoor.Model;
 using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
@@ -16,6 +17,7 @@ namespace GetToTheDoor
         ContentManager content;
         Camera camera;
         List<Tile> tiles = new List<Tile>();
+        List<Turret> turrets = new List<Turret>();
         Key key;
         Door door;
         float tileSize = 0.5f;
@@ -51,6 +53,14 @@ namespace GetToTheDoor
                     {
                         key = new Key(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
                     }
+                    else if (levels[level][y, i] == '>')
+                    {
+                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, true));
+                    }
+                    else if (levels[level][y, i] == '<')
+                    {
+                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, false));
+                    }
                 
                 }
             }
@@ -67,7 +77,20 @@ namespace GetToTheDoor
             {
                 tile.Draw(spriteBatch);
             }
+            foreach(Turret turret in turrets)
+            {
+                turret.Draw(spriteBatch);
+            }
         }
+
+        public void UpdateHazards(float time)
+        {
+            foreach (Turret turret in turrets)
+            {
+                turret.Update(time);
+            }
+        }
+            
 
         public bool playerGetsTheKey(MainCharacterModel charModel)
         {

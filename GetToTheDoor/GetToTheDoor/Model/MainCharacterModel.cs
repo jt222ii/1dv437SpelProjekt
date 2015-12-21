@@ -117,7 +117,6 @@ namespace GetToTheDoor.Model
 
         public void landOnTile(Tile tile)
         {
-            Console.WriteLine(characterSize.Y +"tile:_ " + tile.Size.Y);
             position.Y = tile.Position.Y - (tile.Size.Y/2 + characterSize.Y/2);
             isJumping = false;
             acceleration.Y = 0;
