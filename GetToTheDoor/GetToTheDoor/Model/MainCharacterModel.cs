@@ -91,12 +91,12 @@ namespace GetToTheDoor.Model
 
         public void Collision()
         {
-            if (position.X + characterSize.X >= 16)
+            if (position.X + characterSize.X / 2 >= 16)
             {
                 position.X = 16 - characterSize.X/2;
                 velocity.X = 0;
             }
-            else if (position.X - characterSize.X <= 0)
+            else if (position.X - characterSize.X / 2 <= 0)
             {
                 position.X = 0 + characterSize.X/2;
                 velocity.X = 0;
