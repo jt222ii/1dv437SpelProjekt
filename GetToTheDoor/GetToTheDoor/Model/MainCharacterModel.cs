@@ -9,20 +9,21 @@ namespace GetToTheDoor.Model
 {
     class MainCharacterModel
     {
-        Vector2 position = new Vector2(8f, 2f);
+        Vector2 position;
         Vector2 velocity;
         static float baseGravity = 7f;
         Vector2 acceleration = new Vector2(0f, baseGravity);
         float moveSpeed = 3f;
         //x radius, y radius
         Vector2 characterSize = new Vector2(0.5f, 0.5f);
-        MapSystem tileSystem;
+        MapSystem mapSystem;
         bool hasKey = false;
         bool isJumping = false;
 
-        public MainCharacterModel(MapSystem _tileSystem)
+        public MainCharacterModel(MapSystem _mapSystem)
         {
-            tileSystem = _tileSystem;
+            mapSystem = _mapSystem;
+            position = mapSystem.getSpawnPoint;
         }
         public Vector2 getSize
         {

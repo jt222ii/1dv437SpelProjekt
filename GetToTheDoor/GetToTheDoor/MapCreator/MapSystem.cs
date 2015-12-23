@@ -21,6 +21,7 @@ namespace GetToTheDoor
         Key key;
         Door door;
         float tileSize = 0.5f;
+        Vector2 spawnPosition;
 
         List<char[,]> levels = new List<char[,]>();
 
@@ -38,9 +39,7 @@ namespace GetToTheDoor
             for (int i = 0; i < levels[level].GetLength(1); i++)
             {
                 for (int y = 0; y < levels[level].GetLength(0); y++)
-                {
-                    
-                    
+                {                                   
                     if (levels[level][y, i] == '#')
                     {
                         tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
@@ -61,11 +60,21 @@ namespace GetToTheDoor
                     {
                         turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, false));
                     }
+                    else if (levels[level][y, i] == '$')
+                    {
+                        spawnPosition = new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y);
+                    }
                 
                 }
             }
         }
-
+        public Vector2 getSpawnPoint
+        {
+            get
+            {
+                return spawnPosition;
+            }
+        }
         public void drawTiles(SpriteBatch spriteBatch)
         {
             if (key != null)
