@@ -15,7 +15,7 @@ namespace GetToTheDoor
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D mainCharacter, turretLeft;
+        Texture2D mainCharacter, deadChar, turretLeft;
         MainCharacterModel charModel;
         MainCharacterView charView;
         Camera camera;
@@ -56,9 +56,10 @@ namespace GetToTheDoor
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             mapSystem = new MapSystem(Content, camera);
             mainCharacter = Content.Load<Texture2D>("ethan");
+            deadChar = Content.Load<Texture2D>("Ded");
             turretLeft = Content.Load<Texture2D>("TurretLeft");
             charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(mainCharacter, charModel, camera);
+            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
             // TODO: use this.Content to load your game content here
         }
 
@@ -83,7 +84,13 @@ namespace GetToTheDoor
                 Exit();
 
             // TODO: Add your update logic here
-            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                mapSystem = new MapSystem(Content, camera);
+                charModel = new MainCharacterModel(mapSystem);
+                charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+            }
+            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds, charModel);
             if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
             {
                 charModel.stopMoving();

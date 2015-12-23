@@ -1,4 +1,5 @@
-﻿using GetToTheDoor.View;
+﻿using GetToTheDoor.Model;
+using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,7 +52,7 @@ namespace GetToTheDoor.MapCreator.Hazards
             }
         }
 
-        public void Update(float time)
+        public void Update(float time, MainCharacterModel charModel)
         {
             timer += time;
             if(timer >= fireRate)
@@ -59,9 +60,23 @@ namespace GetToTheDoor.MapCreator.Hazards
                 bullets.Add(new TurretBullet(camera, position, _turnedRight, bulletTexture));
                 timer = 0;
             }
+            List<TurretBullet> bulletsToDelete = new List<TurretBullet>();
             foreach(TurretBullet bullet in bullets)
             {
                 bullet.Update(time);
+                if(bullet.bulletCollidesWithPlayer(charModel))
+                {
+                    charModel.isDead = true;
+                    bulletsToDelete.Add(bullet);
+                }
+            }
+            //var bulletsToDelete = bullets.SingleOrDefault(b => b.bulletCollides());
+            if (bulletsToDelete != null)
+            {
+                foreach(TurretBullet bullet in bulletsToDelete)
+                {
+                    bullets.Remove(bullet);
+                }
             }
         }
     }

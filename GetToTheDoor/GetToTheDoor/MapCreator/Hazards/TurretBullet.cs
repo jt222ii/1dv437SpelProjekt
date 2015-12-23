@@ -1,4 +1,5 @@
-﻿using GetToTheDoor.View;
+﻿using GetToTheDoor.Model;
+using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +17,7 @@ namespace GetToTheDoor.MapCreator.Hazards
         Texture2D texture;
         Vector2 size = new Vector2(0.5f, 0.5f);
         Vector2 scale;
+        bool hasCollided = false;
         public TurretBullet(Camera _camera, Vector2 pos, bool turnedRight, Texture2D bulletTexture)
         {
             texture = bulletTexture;
@@ -38,6 +40,33 @@ namespace GetToTheDoor.MapCreator.Hazards
         public void Update(float elapsedTime)
         {
             position = elapsedTime * Velocity + position;
+        }
+        
+        public bool bulletHasCollided()
+        {
+            return hasCollided;
+        }
+
+        public bool bulletCollidesWithPlayer(MainCharacterModel charModel)
+        {
+            float minX, maxX, minY, maxY;
+            minX = position.X - size.X / 2;
+            maxX = position.X + size.X / 2;
+            minY = position.Y - size.Y / 2;
+            maxY = position.Y + size.Y / 2;
+            if  (
+                charModel.Position.Y > minY && charModel.Position.Y < maxY &&
+                charModel.Position.X + charModel.getSize.X / 2 > minX &&
+                charModel.Position.X - charModel.getSize.X / 2 < maxX
+                )
+            {
+                hasCollided = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

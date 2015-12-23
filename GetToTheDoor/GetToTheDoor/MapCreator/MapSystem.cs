@@ -92,11 +92,11 @@ namespace GetToTheDoor
             }
         }
 
-        public void UpdateHazards(float time)
+        public void UpdateHazards(float time, MainCharacterModel charModel)
         {
             foreach (Turret turret in turrets)
             {
-                turret.Update(time);
+                turret.Update(time, charModel);
             }
         }
             

@@ -17,6 +17,7 @@ namespace GetToTheDoor.Model
         //x radius, y radius
         Vector2 characterSize = new Vector2(0.5f, 0.5f);
         MapSystem mapSystem;
+        bool _isDead = false;
         bool hasKey = false;
         bool isJumping = false;
 
@@ -43,6 +44,17 @@ namespace GetToTheDoor.Model
                 hasKey = value;
             }
         }
+        public bool isDead
+        {
+            get
+            {
+                return _isDead;
+            }
+            set
+            {
+                _isDead = value;
+            }
+        }
         public Vector2 Velocity
         {
             get
@@ -63,16 +75,18 @@ namespace GetToTheDoor.Model
 
         public void moveLeft()
         {
-            if (position.X - characterSize.X <= 0)
+            if (position.X - characterSize.X / 2 <= 0 || _isDead)
             {
+                stopMoving();
                 return;
             }
             velocity.X = -moveSpeed;
         }
         public void moveRight()
         {
-            if (position.X + characterSize.X >= 16)
+            if (position.X + characterSize.X / 2 >= 16 || _isDead)
             {
+                stopMoving();
                 return;
             }
             velocity.X = moveSpeed;
@@ -83,7 +97,7 @@ namespace GetToTheDoor.Model
         }
         public void jump()
         {
-            if (!isJumping)
+            if (!isJumping && !_isDead)
             {
                 velocity.Y = -4f;
                 isJumping = true;
