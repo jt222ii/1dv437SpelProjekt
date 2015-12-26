@@ -1,4 +1,5 @@
-﻿using GetToTheDoor.Model;
+﻿using GetToTheDoor.Controller;
+using GetToTheDoor.Model;
 using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,17 +10,24 @@ namespace GetToTheDoor
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class GameController : Game
+    public class MasterController : Game
     {
-        MapSystem mapSystem;
-
+        GameController gameController;
+        MenuController menuController;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D mainCharacter, deadChar, turretLeft;
-        MainCharacterModel charModel;
-        MainCharacterView charView;
         Camera camera;
-        public GameController()
+        MouseState lastMouseState;
+
+        GameState currentState;
+        enum GameState
+        {
+            mainMenu,
+            playing,
+            victoryMenu,
+            loseMenu,
+        }
+        public MasterController()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
@@ -28,7 +36,9 @@ namespace GetToTheDoor
             //graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
+            this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            currentState = GameState.mainMenu;
         }
 
         /// <summary>
@@ -54,12 +64,8 @@ namespace GetToTheDoor
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            mapSystem = new MapSystem(Content, camera);
-            mainCharacter = Content.Load<Texture2D>("ethan");
-            deadChar = Content.Load<Texture2D>("Ded");
-            turretLeft = Content.Load<Texture2D>("TurretLeft");
-            charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+            gameController = new GameController(Content, graphics, spriteBatch, camera);
+            menuController = new MenuController(Content, graphics, spriteBatch, camera);
             // TODO: use this.Content to load your game content here
         }
 
@@ -77,67 +83,27 @@ namespace GetToTheDoor
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        int test = 0;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+                currentState = GameState.mainMenu;
+            if (currentState == GameState.mainMenu)
             {
-                mapSystem = new MapSystem(Content, camera);
-                charModel = new MainCharacterModel(mapSystem);
-                charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
-            }
-            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds, charModel);
-            if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
-            {
-                charModel.stopMoving();
-            }
-            else
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                var mouseState = Mouse.GetState();
+                if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    charModel.moveRight();
+                    menuController.Update(new Vector2(mouseState.Position.X, mouseState.Position.Y));
+                    if(menuController.pressedPlay)
+                    {
+                        currentState = GameState.playing;
+                    }
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                {
-                    charModel.moveLeft();
-                }
+                lastMouseState = mouseState;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            else if(currentState == GameState.playing)
             {
-                charModel.jump();
+                gameController.Update(gameTime);
             }
-            charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-
-            Tile landedOnTile = mapSystem.landsOnTile(charModel);
-            if (landedOnTile != null)
-            {
-                charModel.landOnTile(landedOnTile);
-                test++;
-            }
-            else
-            {
-                charModel.fall();
-            }
-            if (mapSystem.hitsHeadOnTile(charModel))
-            {
-                charModel.hitHeadOnTile();
-            }
-
-            Tile collidedTile = mapSystem.hitsTileOnX(charModel);
-            if (collidedTile != null)
-            {
-                charModel.collideX(collidedTile);
-            }
-
-            if(mapSystem.playerGetsTheKey(charModel))
-            {
-                charModel.HasKey = true;
-            }
-            mapSystem.playerWantsToGoThroughDoor(charModel);
             base.Update(gameTime);
         }
 
@@ -149,8 +115,14 @@ namespace GetToTheDoor
         {
             GraphicsDevice.Clear(Color.SlateGray);
             spriteBatch.Begin();
-            mapSystem.drawTiles(spriteBatch);
-            charView.Draw(spriteBatch);        
+            if (currentState == GameState.mainMenu)
+            {
+                menuController.Draw();
+            }
+            else if (currentState == GameState.playing)
+            {
+                gameController.Draw(gameTime);
+            } 
             spriteBatch.End();
             // TODO: Add your drawing code here
 

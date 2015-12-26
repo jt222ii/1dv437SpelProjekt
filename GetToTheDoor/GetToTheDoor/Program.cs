@@ -14,7 +14,7 @@ namespace GetToTheDoor
         [STAThread]
         static void Main()
         {
-            using (var game = new GameController())
+            using (var game = new MasterController())
                 game.Run();
         }
     }

@@ -41,7 +41,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GameController.cs" />
+    <Compile Include="Controller\GameController.cs" />
+    <Compile Include="Controller\MasterController.cs" />
+    <Compile Include="Controller\MenuController.cs" />
     <Compile Include="MapCreator\Door.cs" />
     <Compile Include="MapCreator\Hazards\Turret.cs" />
     <Compile Include="MapCreator\Hazards\TurretBullet.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="MapCreator\MapSystem.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\MainCharacterView.cs" />
+    <Compile Include="View\MainMenuView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -79,6 +82,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Nyckel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PlayButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TurretShot.png">
