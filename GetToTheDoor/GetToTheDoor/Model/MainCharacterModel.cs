@@ -116,6 +116,11 @@ namespace GetToTheDoor.Model
                 position.X = 0 + characterSize.X/2;
                 velocity.X = 0;
             }
+
+            if(position.Y >= 16)
+            {
+                isDead = true;
+            }
         }
 
         public Vector2 Position

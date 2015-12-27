@@ -52,6 +52,10 @@ namespace GetToTheDoor.Controller
             {
                return _pressedPlay;
             }
+            set
+            {
+                _pressedPlay = value;
+            }
         }
     }
 }

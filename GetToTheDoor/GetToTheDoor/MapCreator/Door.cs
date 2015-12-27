@@ -50,10 +50,8 @@ namespace GetToTheDoor
             {
                 if (charModel.HasKey)
                 {
-                    Console.WriteLine("YEAAAH");
                     return true;
                 }
-                Console.WriteLine("BOOOOOOOOO");
             }    
             return false;
         }

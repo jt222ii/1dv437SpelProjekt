@@ -20,6 +20,8 @@ namespace GetToTheDoor.Controller
         MapSystem mapSystem;
         Texture2D mainCharacter, deadChar, turretLeft;
         SpriteBatch spriteBatch;
+        int selectedLevel = 0;
+        bool justFinishedLevel = false;
         public GameController(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch _spriteBatch, Camera _camera)
         {
             Content = content;
@@ -27,8 +29,8 @@ namespace GetToTheDoor.Controller
             mainCharacter = Content.Load<Texture2D>("Ethan");
             deadChar = Content.Load<Texture2D>("Ded");
             turretLeft = Content.Load<Texture2D>("TurretLeft");
-            camera = _camera;    
-            mapSystem = new MapSystem(Content, camera);
+            camera = _camera;
+            mapSystem = new MapSystem(Content, camera, selectedLevel);
             charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
         }
@@ -36,9 +38,7 @@ namespace GetToTheDoor.Controller
         {
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                mapSystem = new MapSystem(Content, camera);
-                charModel = new MainCharacterModel(mapSystem);
-                charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+                reloadLevel();
             }
             mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds, charModel);
             if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
@@ -86,9 +86,38 @@ namespace GetToTheDoor.Controller
             {
                 charModel.HasKey = true;
             }
-            mapSystem.playerWantsToGoThroughDoor(charModel);
+            if (mapSystem.playerUnlocksDoor(charModel))
+            {
+                justFinishedLevel = true;
+            }
         }
 
+        public void reloadLevel()
+        {
+            mapSystem = new MapSystem(Content, camera, selectedLevel);
+            charModel = new MainCharacterModel(mapSystem);
+            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+        }
+        public void nextLevel()
+        {
+            if(mapSystem.levelExists(selectedLevel+1))
+            {
+                selectedLevel++;
+                mapSystem = new MapSystem(Content, camera, selectedLevel);
+                charModel = new MainCharacterModel(mapSystem);
+                charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+            }
+        }
+        public void prevLevel()
+        {
+            if (mapSystem.levelExists(selectedLevel - 1))
+            {
+                selectedLevel--;
+            }
+            mapSystem = new MapSystem(Content, camera, selectedLevel);
+            charModel = new MainCharacterModel(mapSystem);
+            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);          
+        }
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -97,6 +126,23 @@ namespace GetToTheDoor.Controller
         {
             mapSystem.drawTiles(spriteBatch);
             charView.Draw(spriteBatch);        
+        }
+
+        public bool isPlayerDead()
+        {
+            return charModel.isDead;
+        }
+
+        public bool JustFinishedLevel
+        {
+            get
+            {
+                return justFinishedLevel;
+            }
+            set
+            {
+                justFinishedLevel = value;
+            }
         }
     }
 }

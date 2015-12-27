@@ -25,13 +25,21 @@ namespace GetToTheDoor
 
         List<char[,]> levels = new List<char[,]>();
 
-        public MapSystem(ContentManager _content, Camera _camera)
+        public MapSystem(ContentManager _content, Camera _camera, int selectedLevel)
         {
             content = _content;
             camera = _camera;
             LevelCreator levelCreator = new LevelCreator();
             levels = levelCreator.getLevels();
-            loadLevel(0);
+            loadLevel(selectedLevel);
+        }
+        public bool levelExists(int level)
+        {
+            if(level >= 0 && levels[level] != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void loadLevel(int level)
@@ -114,7 +122,7 @@ namespace GetToTheDoor
             return false;
         }
 
-        public bool playerWantsToGoThroughDoor(MainCharacterModel charModel)
+        public bool playerUnlocksDoor(MainCharacterModel charModel)
         {
             return door.collidesAndUnlocks(charModel);
         }
