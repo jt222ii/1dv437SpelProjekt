@@ -142,8 +142,9 @@ namespace GetToTheDoor.Model
             acceleration.Y = 0;
             velocity.Y = 0;
         }
-        public void hitHeadOnTile()
+        public void hitHeadOnTile(Tile tileHitFromBelow)
         {
+            position.Y = tileHitFromBelow.Position.Y + tileHitFromBelow.Size.Y;
             velocity.Y = -velocity.Y*0.5f;
         }
         public void collideX(Tile tile)

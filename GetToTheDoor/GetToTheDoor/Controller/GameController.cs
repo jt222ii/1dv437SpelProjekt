@@ -71,9 +71,10 @@ namespace GetToTheDoor.Controller
             {
                 charModel.fall();
             }
-            if (mapSystem.hitsHeadOnTile(charModel))
+            Tile tileHitFromBelow = mapSystem.hitsHeadOnTile(charModel);
+            if (tileHitFromBelow != null)
             {
-                charModel.hitHeadOnTile();
+                charModel.hitHeadOnTile(tileHitFromBelow);
             }
 
             Tile collidedTile = mapSystem.hitsTileOnX(charModel);

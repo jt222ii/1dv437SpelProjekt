@@ -138,16 +138,16 @@ namespace GetToTheDoor
             }
             return null;
         }
-        public bool hitsHeadOnTile(MainCharacterModel charModel)
+        public Tile hitsHeadOnTile(MainCharacterModel charModel)
         {
             foreach (Tile tile in tiles)
             {
                 if (tile.hitsHeadOnTile(charModel))
                 {
-                    return true;
+                    return tile;
                 }
             }
-            return false;
+            return null;
         }
         public Tile hitsTileOnX(MainCharacterModel charModel)
         {

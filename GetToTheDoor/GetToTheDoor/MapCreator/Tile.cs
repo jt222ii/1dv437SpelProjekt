@@ -58,9 +58,10 @@ namespace GetToTheDoor
             maxY = position.Y + tileSize.Y / 2;
             return 
                 (
-                charModel.Position.X > minX && charModel.Position.X < maxX && 
+                charModel.Position.X + charModel.getSize.X/3 > minX && charModel.Position.X - charModel.getSize.X/3 < maxX && 
                 charModel.Position.Y + charModel.getSize.Y / 2 > minY && 
-                charModel.Position.Y - charModel.getSize.Y / 2 < minY
+                charModel.Position.Y - charModel.getSize.Y / 2 < minY &&
+                charModel.Velocity.Y >= 0
                 );
         }
         public bool hitsHeadOnTile(MainCharacterModel charModel)
@@ -72,9 +73,10 @@ namespace GetToTheDoor
             maxY = position.Y + tileSize.Y / 2;
             return
                 (
-                charModel.Position.X > minX && charModel.Position.X < maxX &&
-                charModel.Position.Y + charModel.getSize.Y / 2 > minY &&
-                charModel.Position.Y - charModel.getSize.Y / 2 < maxY
+                charModel.Position.X + charModel.getSize.X / 3 > minX && charModel.Position.X - charModel.getSize.X / 3 < maxX &&
+                charModel.Position.Y > minY &&
+                charModel.Position.Y - charModel.getSize.Y / 2 < maxY &&
+                charModel.Velocity.Y <= 0
                 );
         }
 
