@@ -22,10 +22,6 @@ namespace GetToTheDoor
         float timer = 0;
         float timeUntilMenuToShow = 2;
 
-        //ska tas bort
-        Texture2D sawBlade;
-        float rotation = 0;
-        //
         GameState currentState;
         enum GameState
         {
@@ -68,7 +64,6 @@ namespace GetToTheDoor
         {
 
             // Create a new SpriteBatch, which can be used to draw textures.
-            sawBlade = Content.Load<Texture2D>("SawBlade");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             gameController = new GameController(Content, graphics, spriteBatch, camera);
@@ -167,10 +162,6 @@ namespace GetToTheDoor
         {
             GraphicsDevice.Clear(Color.SlateGray);
             spriteBatch.Begin();
-            // ska tas bort
-            rotation += (float)gameTime.ElapsedGameTime.TotalSeconds*2;
-            spriteBatch.Draw(sawBlade, camera.convertToVisualCoords(new Vector2(6f, 5f)), null, Color.White, rotation, new Vector2(sawBlade.Width/2, sawBlade.Height/2), 1f, SpriteEffects.None, 1f);
-            // 
             if (currentState == GameState.mainMenu)
             {
                 menuController.Draw();

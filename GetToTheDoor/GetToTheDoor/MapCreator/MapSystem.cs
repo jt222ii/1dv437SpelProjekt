@@ -18,6 +18,7 @@ namespace GetToTheDoor
         Camera camera;
         List<Tile> tiles = new List<Tile>();
         List<Turret> turrets = new List<Turret>();
+        List<SawBlade> sawBlades = new List<SawBlade>();
         Key key;
         Door door;
         float tileSize = 0.5f;
@@ -72,6 +73,10 @@ namespace GetToTheDoor
                     {
                         spawnPosition = new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y);
                     }
+                    else if (levels[level][y, i] == '*')
+                    {
+                        sawBlades.Add(new SawBlade(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
+                    }
                 
                 }
             }
@@ -98,6 +103,11 @@ namespace GetToTheDoor
             {
                 turret.Draw(spriteBatch);
             }
+            foreach (SawBlade sawBlade in sawBlades)
+            {
+                sawBlade.Draw(spriteBatch);
+            }
+
         }
 
         public void UpdateHazards(float time, MainCharacterModel charModel)
@@ -105,6 +115,10 @@ namespace GetToTheDoor
             foreach (Turret turret in turrets)
             {
                 turret.Update(time, charModel);
+            }
+            foreach (SawBlade sawBlade in sawBlades)
+            {
+                sawBlade.Update(time, tiles, charModel);
             }
         }
             

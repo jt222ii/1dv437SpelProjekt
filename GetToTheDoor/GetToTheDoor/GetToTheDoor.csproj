@@ -46,6 +46,7 @@
     <Compile Include="Controller\MenuController.cs" />
     <Compile Include="Controller\MidMenuController.cs" />
     <Compile Include="MapCreator\Door.cs" />
+    <Compile Include="MapCreator\Hazards\SawBlade.cs" />
     <Compile Include="MapCreator\Hazards\Turret.cs" />
     <Compile Include="MapCreator\Hazards\TurretBullet.cs" />
     <Compile Include="MapCreator\Key.cs" />
