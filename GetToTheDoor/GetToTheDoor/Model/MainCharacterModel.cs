@@ -11,7 +11,7 @@ namespace GetToTheDoor.Model
     {
         Vector2 position;
         Vector2 velocity;
-        static float baseGravity = 7f;
+        static float baseGravity = 8f;
         Vector2 acceleration = new Vector2(0f, baseGravity);
         float moveSpeed = 3f;
         //x radius, y radius

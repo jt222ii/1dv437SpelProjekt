@@ -160,7 +160,7 @@ namespace GetToTheDoor
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SlateGray);
+            GraphicsDevice.Clear(Color.SteelBlue);
             spriteBatch.Begin();
             if (currentState == GameState.mainMenu)
             {
