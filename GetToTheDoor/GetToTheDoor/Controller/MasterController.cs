@@ -32,8 +32,8 @@ namespace GetToTheDoor
         public MasterController()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             //graphics.PreferredBackBufferWidth = 1920;
             //graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = false;
@@ -96,10 +96,16 @@ namespace GetToTheDoor
                 if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     menuController.Update(new Vector2(mouseState.Position.X, mouseState.Position.Y));
-                    if(menuController.pressedPlay)
+                    if(menuController.pressedContinue)
                     {
                         currentState = GameState.playing;
-                        menuController.pressedPlay = false;
+                        menuController.pressedContinue = false;
+                    }
+                    else if(menuController.pressedNewGame)
+                    {
+                        currentState = GameState.playing;
+                        menuController.pressedNewGame = false;
+                        gameController.restart();
                     }
                 }
                 lastMouseState = mouseState;

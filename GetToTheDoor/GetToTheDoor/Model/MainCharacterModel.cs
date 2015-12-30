@@ -15,7 +15,7 @@ namespace GetToTheDoor.Model
         Vector2 acceleration = new Vector2(0f, baseGravity);
         float moveSpeed = 3f;
         //x radius, y radius
-        Vector2 characterSize = new Vector2(0.5f, 0.5f);
+        Vector2 characterSize = new Vector2(0.4f, 0.4f);
         MapSystem mapSystem;
         bool _isDead = false;
         bool hasKey = false;

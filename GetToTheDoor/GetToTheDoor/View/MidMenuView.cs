@@ -16,7 +16,7 @@ namespace GetToTheDoor.View
         Vector2 restartButtonPos = new Vector2(8f, 2f);
         Vector2 prevButtonPos = new Vector2(8f, 4.5f);
         Vector2 nextButtonPos = new Vector2(8f, 7f);
-        Vector2 size = new Vector2(2f, 1f);
+        Vector2 size = new Vector2(4f, 2f);
         Texture2D nextLevelButton, previousLevelButton, restartButton;
         Vector2 textureCenter;
         Vector2 scale;

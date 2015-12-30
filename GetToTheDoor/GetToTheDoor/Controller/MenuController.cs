@@ -14,30 +14,44 @@ namespace GetToTheDoor.Controller
         MainMenuView mainMenuView;
         Camera camera;
         ContentManager Content;
-        Texture2D playButton;
+        Texture2D continueButton, newGameButton, infoWindow;
         SpriteBatch spriteBatch;
-        bool _pressedPlay = false;
+        bool _pressedContinue = false;
+        bool _pressedNewGame = false;
         public MenuController(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch _spriteBatch, Camera _camera)
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            playButton = Content.Load<Texture2D>("PlayButton");
+            continueButton = Content.Load<Texture2D>("ContinueButton");
+            newGameButton = Content.Load<Texture2D>("NewGameButton");
+            infoWindow = Content.Load<Texture2D>("InfoWindow");
             camera = _camera;
-            mainMenuView = new MainMenuView(Content, camera, playButton);
+            mainMenuView = new MainMenuView(camera, continueButton, newGameButton, infoWindow);
         }
 
         public void Update(Vector2 mousePos)
         {
-            var playButtonSize = mainMenuView.getSize();
-            var playButtonPos = mainMenuView.getPlayButtonPos();
+            var ButtonSize = mainMenuView.getSize();
+            var continueButtonPos = mainMenuView.getContinueButtonPos();
+            var newGameButtonPos = mainMenuView.getNewGameButtonPos();
             if (
-                camera.convertToLogicalCoords(mousePos).X < playButtonPos.X + playButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).X > playButtonPos.X - playButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).Y < playButtonPos.Y + playButtonSize.Y &&
-                camera.convertToLogicalCoords(mousePos).Y > playButtonPos.Y - playButtonSize.Y 
+                camera.convertToLogicalCoords(mousePos).X < continueButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > continueButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < continueButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > continueButtonPos.Y - ButtonSize.Y / 2 
                )
             {
-                _pressedPlay = true;
+                _pressedContinue = true;
+            }
+
+            if (
+                camera.convertToLogicalCoords(mousePos).X < newGameButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > newGameButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < newGameButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > newGameButtonPos.Y - ButtonSize.Y / 2
+               )
+            {
+                _pressedNewGame = true;
             }
         }
 
@@ -46,15 +60,26 @@ namespace GetToTheDoor.Controller
             mainMenuView.Draw(spriteBatch);
         }
 
-        public bool pressedPlay
+        public bool pressedNewGame
         {
             get
             {
-               return _pressedPlay;
+                return _pressedNewGame;
             }
             set
             {
-                _pressedPlay = value;
+                _pressedNewGame = value;
+            }
+        }
+        public bool pressedContinue
+        {
+            get
+            {
+               return _pressedContinue;
+            }
+            set
+            {
+                _pressedContinue = value;
             }
         }
     }

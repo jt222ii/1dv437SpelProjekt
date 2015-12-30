@@ -23,9 +23,9 @@ namespace GetToTheDoor.Controller
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            nextButton = Content.Load<Texture2D>("NextLevel");
-            prevButton = Content.Load<Texture2D>("PrevLevel");
-            restartButton = Content.Load<Texture2D>("RestartLevel");
+            nextButton = Content.Load<Texture2D>("NextButton");
+            prevButton = Content.Load<Texture2D>("PrevButton");
+            restartButton = Content.Load<Texture2D>("RestartButton");
             camera = _camera;
             midMenuView = new MidMenuView(Content, camera, nextButton, prevButton, restartButton);
         }
@@ -37,10 +37,10 @@ namespace GetToTheDoor.Controller
             var prevButtonPos = midMenuView.getPrevButtonPos();
             var restartButtonPos = midMenuView.getRestartButtonPos();
             if (
-                camera.convertToLogicalCoords(mousePos).X < nextButtonPos.X + ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).X > nextButtonPos.X - ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).Y < nextButtonPos.Y + ButtonSize.Y &&
-                camera.convertToLogicalCoords(mousePos).Y > nextButtonPos.Y - ButtonSize.Y &&
+                camera.convertToLogicalCoords(mousePos).X < nextButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > nextButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < nextButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > nextButtonPos.Y - ButtonSize.Y / 2 &&
                 !playerFailed
                )
             {
@@ -49,10 +49,10 @@ namespace GetToTheDoor.Controller
 
 
             else if (
-                camera.convertToLogicalCoords(mousePos).X < prevButtonPos.X + ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).X > prevButtonPos.X - ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).Y < prevButtonPos.Y + ButtonSize.Y &&
-                camera.convertToLogicalCoords(mousePos).Y > prevButtonPos.Y - ButtonSize.Y
+                camera.convertToLogicalCoords(mousePos).X < prevButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > prevButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < prevButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > prevButtonPos.Y - ButtonSize.Y / 2
                )
             {
                 _pressedPrev = true;
@@ -60,10 +60,10 @@ namespace GetToTheDoor.Controller
 
 
             else if (
-                camera.convertToLogicalCoords(mousePos).X < restartButtonPos.X + ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).X > restartButtonPos.X - ButtonSize.X &&
-                camera.convertToLogicalCoords(mousePos).Y < restartButtonPos.Y + ButtonSize.Y &&
-                camera.convertToLogicalCoords(mousePos).Y > restartButtonPos.Y - ButtonSize.Y
+                camera.convertToLogicalCoords(mousePos).X < restartButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > restartButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < restartButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > restartButtonPos.Y - ButtonSize.Y / 2
                )
             {
                 _pressedRestart = true;

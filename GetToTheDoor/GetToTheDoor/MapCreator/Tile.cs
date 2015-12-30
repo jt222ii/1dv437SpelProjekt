@@ -58,7 +58,7 @@ namespace GetToTheDoor
             maxY = position.Y + tileSize.Y / 2;
             return 
                 (
-                charModel.Position.X + charModel.getSize.X/3 > minX && charModel.Position.X - charModel.getSize.X/3 < maxX && 
+                charModel.Position.X + charModel.getSize.X/ 3 > minX && charModel.Position.X - charModel.getSize.X/3 < maxX && 
                 charModel.Position.Y + charModel.getSize.Y / 2 > minY && 
                 charModel.Position.Y - charModel.getSize.Y / 2 < minY &&
                 charModel.Velocity.Y >= 0
@@ -89,7 +89,7 @@ namespace GetToTheDoor
             maxY = position.Y + tileSize.Y / 2;
             return
                 (
-                charModel.Position.Y > minY && charModel.Position.Y < maxY &&
+                charModel.Position.Y + charModel.getSize.Y /3 > minY && charModel.Position.Y - charModel.getSize.Y / 3 < maxY &&
                 charModel.Position.X + charModel.getSize.X / 2 > minX &&
                 charModel.Position.X - charModel.getSize.X / 2 < maxX
                 );

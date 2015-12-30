@@ -94,7 +94,11 @@ namespace GetToTheDoor.Controller
                 justFinishedLevel = true;
             }
         }
-
+        public void restart()
+        {
+            selectedLevel = 0;
+            reloadLevel();
+        }
         public void reloadLevel()
         {
             mapSystem = new MapSystem(Content, camera, selectedLevel);

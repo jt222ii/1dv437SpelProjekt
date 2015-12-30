@@ -11,24 +11,32 @@ namespace GetToTheDoor.View
     class MainMenuView
     {
         Camera camera;
-        ContentManager Content;
-        Vector2 playButtonPos = new Vector2(8f, 4.5f);
-        Vector2 size = new Vector2(2f, 1f);
-        Texture2D playButton;
+        Vector2 continueButtonPos = new Vector2(8f, 2f);
+        Vector2 newGameButtonPos = new Vector2(8f, 4.5f);
+        Vector2 infoWindowPos = new Vector2(8f, 7f);
+        Vector2 size = new Vector2(4f, 2f);
+        Vector2 infoSize = new Vector2(6f, 3f);
+        Texture2D continueButton, newGameButton, infoWindow;
         Vector2 textureCenter;
-        Vector2 scale;
-        public MainMenuView(ContentManager content, Camera _camera, Texture2D buttonTexture)
+        Vector2 scale, infoscale;
+        public MainMenuView(Camera _camera, Texture2D buttonTexture, Texture2D NewGameButton, Texture2D InfoWindow)
         {
             camera = _camera;
-            Content = content;
-            playButton = buttonTexture;
+            continueButton = buttonTexture;
+            newGameButton = NewGameButton;
+            infoWindow = InfoWindow;
             textureCenter = new Vector2(buttonTexture.Width / 2, buttonTexture.Height / 2);
             scale = camera.Scale(size, buttonTexture.Width, buttonTexture.Height);
+            infoscale = camera.Scale(infoSize, InfoWindow.Width, InfoWindow.Height);
         }
 
-        public Vector2 getPlayButtonPos()
+        public Vector2 getContinueButtonPos()
         {
-            return playButtonPos;
+            return continueButtonPos;
+        }
+        public Vector2 getNewGameButtonPos()
+        {
+            return newGameButtonPos;
         }
         public Vector2 getSize()
         {
@@ -37,8 +45,9 @@ namespace GetToTheDoor.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var buttonVisualLoc = camera.convertToVisualCoords(playButtonPos);
-            spriteBatch.Draw(playButton, buttonVisualLoc, null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
+            spriteBatch.Draw(continueButton, camera.convertToVisualCoords(continueButtonPos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
+            spriteBatch.Draw(newGameButton, camera.convertToVisualCoords(newGameButtonPos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
+            spriteBatch.Draw(infoWindow, camera.convertToVisualCoords(infoWindowPos), null, Color.White, 0, textureCenter, infoscale, SpriteEffects.None, 1f);
         }
 
 
