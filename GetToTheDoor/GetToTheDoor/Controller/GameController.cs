@@ -26,8 +26,10 @@ namespace GetToTheDoor.Controller
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            mainCharacter = Content.Load<Texture2D>("Ethan");
-            deadChar = Content.Load<Texture2D>("Ded");
+            //mainCharacter = Content.Load<Texture2D>("Ethan");
+            mainCharacter = Content.Load<Texture2D>("BoxCharacter");
+            //deadChar = Content.Load<Texture2D>("Ded");
+            deadChar = Content.Load<Texture2D>("BoxCharacterDed");
             turretLeft = Content.Load<Texture2D>("TurretLeft");
             camera = _camera;
             mapSystem = new MapSystem(Content, camera, selectedLevel);
