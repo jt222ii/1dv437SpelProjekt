@@ -14,6 +14,7 @@ namespace GetToTheDoor.MapCreator
          * < = turret facing left
          * D = door
          * $ = spawn point
+         * * = saw blade
          * more to come
          */ 
         public List<char[,]> getLevels()
