@@ -88,7 +88,7 @@ namespace GetToTheDoor
                 return spawnPosition;
             }
         }
-        public void drawTiles(SpriteBatch spriteBatch)
+        public void drawTiles(SpriteBatch spriteBatch, float elapsedTime)
         {
             if (key != null)
             {
@@ -101,7 +101,7 @@ namespace GetToTheDoor
             }
             foreach(Turret turret in turrets)
             {
-                turret.Draw(spriteBatch);
+                turret.Draw(spriteBatch, elapsedTime);
             }
             foreach (SawBlade sawBlade in sawBlades)
             {

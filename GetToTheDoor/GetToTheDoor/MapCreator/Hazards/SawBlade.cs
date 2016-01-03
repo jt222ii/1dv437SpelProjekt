@@ -23,7 +23,7 @@ namespace GetToTheDoor.MapCreator.Hazards
         {
 
             tileSize = new Vector2(size, size);
-            texture = Content.Load<Texture2D>("SawBlade");
+            texture = Content.Load<Texture2D>("Hazards/SawBlade");
             position = pos;
             camera = _camera;
             textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);

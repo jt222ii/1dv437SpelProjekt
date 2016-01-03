@@ -22,7 +22,7 @@ namespace GetToTheDoor
         public Tile(ContentManager Content, Camera _camera, Vector2 pos, float size)
         {
             tileSize = new Vector2(size, size);
-            texture = Content.Load<Texture2D>("Tile");
+            texture = Content.Load<Texture2D>("Tiles/Tile");
             position = pos;
             camera = _camera;
             textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);

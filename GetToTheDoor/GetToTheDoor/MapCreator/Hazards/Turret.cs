@@ -12,7 +12,7 @@ namespace GetToTheDoor.MapCreator.Hazards
 {
     class Turret
     {
-        Texture2D texture, bulletTexture;
+        Texture2D texture, bulletTexture, shockWave;
         Vector2 position;
         Camera camera;
         Vector2 textureCenter;
@@ -23,18 +23,20 @@ namespace GetToTheDoor.MapCreator.Hazards
         bool _turnedRight;
 
         List<TurretBullet> bullets = new List<TurretBullet>();
+        List<BulletHitParticles> particles = new List<BulletHitParticles>();
         public Turret(ContentManager Content, Camera _camera, Vector2 pos, float size, bool turnedRight)
         {
             _turnedRight = turnedRight;
-            bulletTexture = Content.Load<Texture2D>("TurretShot");
+            shockWave = Content.Load<Texture2D>("Hazards/Shockwave2");
+            bulletTexture = Content.Load<Texture2D>("Hazards/TurretShot");
             tileSize = new Vector2(size, size);
             if (turnedRight)
             {
-                texture = Content.Load<Texture2D>("TurretRight");
+                texture = Content.Load<Texture2D>("Hazards/TurretRight");
             }
             else
             {
-                texture = Content.Load<Texture2D>("TurretLeft");
+                texture = Content.Load<Texture2D>("Hazards/TurretLeft");
             }
             position = pos;
             camera = _camera;
@@ -42,13 +44,17 @@ namespace GetToTheDoor.MapCreator.Hazards
             scale = camera.Scale(tileSize, texture.Width, texture.Height);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, float elapsedTime)
         {
             Vector2 pos = position;
             spriteBatch.Draw(texture, camera.convertToVisualCoords(pos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
             foreach (TurretBullet bullet in bullets)
             {
                 bullet.Draw(spriteBatch);
+            }
+            foreach(BulletHitParticles particle in particles)
+            {
+                particle.Draw(elapsedTime, spriteBatch);
             }
         }
 
@@ -66,11 +72,11 @@ namespace GetToTheDoor.MapCreator.Hazards
                 bullet.Update(time);
                 if(bullet.bulletCollidesWithPlayer(charModel))
                 {
+                    particles.Add(new BulletHitParticles(shockWave, camera, 1f, bullet.Position));
                     charModel.isDead = true;
                     bulletsToDelete.Add(bullet);
                 }
             }
-            //var bulletsToDelete = bullets.SingleOrDefault(b => b.bulletCollides());
             if (bulletsToDelete != null)
             {
                 foreach(TurretBullet bullet in bulletsToDelete)

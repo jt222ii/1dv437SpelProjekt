@@ -22,9 +22,9 @@ namespace GetToTheDoor.Controller
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            continueButton = Content.Load<Texture2D>("ContinueButton");
-            newGameButton = Content.Load<Texture2D>("NewGameButton");
-            infoWindow = Content.Load<Texture2D>("InfoWindow");
+            continueButton = Content.Load<Texture2D>("Menu/ContinueButton");
+            newGameButton = Content.Load<Texture2D>("Menu/NewGameButton");
+            infoWindow = Content.Load<Texture2D>("Menu/InfoWindow");
             camera = _camera;
             mainMenuView = new MainMenuView(camera, continueButton, newGameButton, infoWindow);
         }

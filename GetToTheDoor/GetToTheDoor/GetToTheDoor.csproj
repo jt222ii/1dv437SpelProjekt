@@ -77,6 +77,7 @@
     <Compile Include="Controller\MenuController.cs" />
     <Compile Include="Controller\MidMenuController.cs" />
     <Compile Include="MapCreator\Door.cs" />
+    <Compile Include="MapCreator\Hazards\BulletHitParticles.cs" />
     <Compile Include="MapCreator\Hazards\SawBlade.cs" />
     <Compile Include="MapCreator\Hazards\Turret.cs" />
     <Compile Include="MapCreator\Hazards\TurretBullet.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="MapCreator\Tile.cs" />
     <Compile Include="MapCreator\MapSystem.cs" />
     <Compile Include="View\Camera.cs" />
+    <Compile Include="View\CharacterBloodParticles.cs" />
     <Compile Include="View\MainCharacterView.cs" />
     <Compile Include="View\MainCharViewAnimationsBackup.cs" />
     <Compile Include="View\MainMenuView.cs" />
@@ -104,76 +106,80 @@
     <Content Include="Content\1_043.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxCharacter.png">
+    <Content Include="Content\Character\BloodParticle.png" />
+    <Content Include="Content\Character\BoxCharacter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxCharacterDed.png">
+    <Content Include="Content\Character\BoxCharacterDed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxDed.png">
+    <Content Include="Content\Character\BoxDed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxIdle.png">
+    <Content Include="Content\Character\BoxIdle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxLeft.png">
+    <Content Include="Content\Character\BoxLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BoxRight.png">
+    <Content Include="Content\Character\BoxRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ContinueButton.png">
+    <Content Include="Content\Hazards\Shockwave2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\DeathSheet.png">
+    <Content Include="Content\Menu\ContinueButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Character\DeathSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Door.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Idle2.png">
+    <Content Include="Content\Character\Idle2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\IdleGuySpriteSheet.png">
+    <Content Include="Content\Character\IdleGuySpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\InfoWindow.png">
+    <Content Include="Content\Menu\InfoWindow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NewGameButton.png">
+    <Content Include="Content\Menu\NewGameButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NextButton.png">
+    <Content Include="Content\Menu\NextButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Nyckel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PrevButton.png">
+    <Content Include="Content\Menu\PrevButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\RestartButton.png">
+    <Content Include="Content\Menu\RestartButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SawBlade.png">
+    <Content Include="Content\Hazards\SawBlade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TurretShot.png">
+    <Content Include="Content\Hazards\TurretShot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Tile.png">
+    <Content Include="Content\Tiles\Tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TurretLeft.png">
+    <Content Include="Content\Hazards\TurretLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TurretRight.png">
+    <Content Include="Content\Hazards\TurretRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\WalkLeft2.png">
+    <Content Include="Content\Character\WalkLeft2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\WalkRight2.png">
+    <Content Include="Content\Character\WalkRight2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

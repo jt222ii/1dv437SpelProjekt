@@ -23,9 +23,9 @@ namespace GetToTheDoor.Controller
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            nextButton = Content.Load<Texture2D>("NextButton");
-            prevButton = Content.Load<Texture2D>("PrevButton");
-            restartButton = Content.Load<Texture2D>("RestartButton");
+            nextButton = Content.Load<Texture2D>("Menu/NextButton");
+            prevButton = Content.Load<Texture2D>("Menu/PrevButton");
+            restartButton = Content.Load<Texture2D>("Menu/RestartButton");
             camera = _camera;
             midMenuView = new MidMenuView(Content, camera, nextButton, prevButton, restartButton);
         }

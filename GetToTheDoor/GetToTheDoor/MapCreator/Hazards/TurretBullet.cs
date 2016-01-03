@@ -30,6 +30,11 @@ namespace GetToTheDoor.MapCreator.Hazards
             textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);
             scale = camera.Scale(size, texture.Width, texture.Height);
         }
+
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         
         public void Draw(SpriteBatch spriteBatch)
         {

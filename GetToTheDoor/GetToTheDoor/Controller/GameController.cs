@@ -27,17 +27,17 @@ namespace GetToTheDoor.Controller
             Content = content;
             spriteBatch = _spriteBatch;
 
-            //walkingLeftCharacter = Content.Load<Texture2D>("WalkLeft2");
-            //walkingRightCharacter = Content.Load<Texture2D>("WalkRight2");
-            //idleCharacter = Content.Load<Texture2D>("Idle2");
-            //deadChar = Content.Load<Texture2D>("DeathSheet");
+            //walkingLeftCharacter = Content.Load<Texture2D>("Character/WalkLeft2");
+            //walkingRightCharacter = Content.Load<Texture2D>("Character/WalkRight2");
+            //idleCharacter = Content.Load<Texture2D>("Character/Idle2");
+            //deadChar = Content.Load<Texture2D>("Character/DeathSheet");
 
-            walkingLeftCharacter = Content.Load<Texture2D>("BoxLeft");
-            walkingRightCharacter = Content.Load<Texture2D>("BoxRight");
-            idleCharacter = Content.Load<Texture2D>("BoxIdle");
-            deadChar = Content.Load<Texture2D>("BoxDed");
+            walkingLeftCharacter = Content.Load<Texture2D>("Character/BoxLeft");
+            walkingRightCharacter = Content.Load<Texture2D>("Character/BoxRight");
+            idleCharacter = Content.Load<Texture2D>("Character/BoxIdle");
+            deadChar = Content.Load<Texture2D>("Character/BoxDed");
 
-            turretLeft = Content.Load<Texture2D>("TurretLeft");
+            turretLeft = Content.Load<Texture2D>("Hazards/TurretLeft");
             camera = _camera;
             mapSystem = new MapSystem(Content, camera, selectedLevel);
             charModel = new MainCharacterModel(mapSystem);
@@ -141,7 +141,7 @@ namespace GetToTheDoor.Controller
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Draw(GameTime gameTime)
         {
-            mapSystem.drawTiles(spriteBatch);
+            mapSystem.drawTiles(spriteBatch, (float)gameTime.ElapsedGameTime.TotalSeconds);
             charView.Draw(spriteBatch, (float)gameTime.ElapsedGameTime.TotalSeconds);        
         }
 
