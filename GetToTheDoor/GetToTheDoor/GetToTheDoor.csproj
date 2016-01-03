@@ -89,6 +89,7 @@
     <Compile Include="MapCreator\MapSystem.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\MainCharacterView.cs" />
+    <Compile Include="View\MainCharViewAnimationsBackup.cs" />
     <Compile Include="View\MainMenuView.cs" />
     <Compile Include="View\MidMenuView.cs" />
   </ItemGroup>
