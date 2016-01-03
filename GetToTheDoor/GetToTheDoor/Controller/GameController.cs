@@ -18,7 +18,7 @@ namespace GetToTheDoor.Controller
         Camera camera;
         ContentManager Content;
         MapSystem mapSystem;
-        Texture2D mainCharacter, deadChar, turretLeft;
+        Texture2D idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, turretLeft;
         SpriteBatch spriteBatch;
         int selectedLevel = 0;
         bool justFinishedLevel = false;
@@ -26,15 +26,22 @@ namespace GetToTheDoor.Controller
         {
             Content = content;
             spriteBatch = _spriteBatch;
-            //mainCharacter = Content.Load<Texture2D>("Ethan");
-            mainCharacter = Content.Load<Texture2D>("BoxCharacter");
-            //deadChar = Content.Load<Texture2D>("Ded");
-            deadChar = Content.Load<Texture2D>("BoxCharacterDed");
+
+            //walkingLeftCharacter = Content.Load<Texture2D>("WalkLeft2");
+            //walkingRightCharacter = Content.Load<Texture2D>("WalkRight2");
+            //idleCharacter = Content.Load<Texture2D>("Idle2");
+            //deadChar = Content.Load<Texture2D>("DeathSheet");
+
+            walkingLeftCharacter = Content.Load<Texture2D>("BoxLeft");
+            walkingRightCharacter = Content.Load<Texture2D>("BoxRight");
+            idleCharacter = Content.Load<Texture2D>("BoxIdle");
+            deadChar = Content.Load<Texture2D>("BoxDed");
+
             turretLeft = Content.Load<Texture2D>("TurretLeft");
             camera = _camera;
             mapSystem = new MapSystem(Content, camera, selectedLevel);
             charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+            charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, charModel, camera);
         }
         public void Update(GameTime gameTime)
         {
@@ -46,16 +53,19 @@ namespace GetToTheDoor.Controller
             if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
             {
                 charModel.stopMoving();
+                charView.setIdle();
             }
             else
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
                     charModel.moveRight();
+                    charView.setWalkingRight();
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
                     charModel.moveLeft();
+                    charView.setWalkingLeft();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
@@ -103,7 +113,7 @@ namespace GetToTheDoor.Controller
         {
             mapSystem = new MapSystem(Content, camera, selectedLevel);
             charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+            charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, charModel, camera);
         }
         public void nextLevel()
         {
@@ -112,7 +122,7 @@ namespace GetToTheDoor.Controller
                 selectedLevel++;
                 mapSystem = new MapSystem(Content, camera, selectedLevel);
                 charModel = new MainCharacterModel(mapSystem);
-                charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);
+                charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, charModel, camera);
             }
         }
         public void prevLevel()
@@ -123,7 +133,7 @@ namespace GetToTheDoor.Controller
             }
             mapSystem = new MapSystem(Content, camera, selectedLevel);
             charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(mainCharacter, deadChar, charModel, camera);          
+            charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, charModel, camera);          
         }
         /// <summary>
         /// This is called when the game should draw itself.
@@ -132,7 +142,7 @@ namespace GetToTheDoor.Controller
         public void Draw(GameTime gameTime)
         {
             mapSystem.drawTiles(spriteBatch);
-            charView.Draw(spriteBatch);        
+            charView.Draw(spriteBatch, (float)gameTime.ElapsedGameTime.TotalSeconds);        
         }
 
         public bool isPlayerDead()

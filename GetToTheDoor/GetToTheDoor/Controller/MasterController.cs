@@ -20,7 +20,7 @@ namespace GetToTheDoor
         Camera camera;
         MouseState lastMouseState;
         float timer = 0;
-        float timeUntilMenuToShow = 2;
+        float timeUntilMenuToShow = 1f;
 
         GameState currentState;
         enum GameState
@@ -36,7 +36,6 @@ namespace GetToTheDoor
             graphics.PreferredBackBufferHeight = 900;
             //graphics.PreferredBackBufferWidth = 1920;
             //graphics.PreferredBackBufferHeight = 1080;
-            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
