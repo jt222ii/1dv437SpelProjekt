@@ -14,7 +14,7 @@ namespace GetToTheDoor.Controller
         MainMenuView mainMenuView;
         Camera camera;
         ContentManager Content;
-        Texture2D continueButton, newGameButton, infoWindow;
+        Texture2D continueButton, newGameButton, infoWindow, infoWindow2;
         SpriteBatch spriteBatch;
         bool _pressedContinue = false;
         bool _pressedNewGame = false;
@@ -25,8 +25,9 @@ namespace GetToTheDoor.Controller
             continueButton = Content.Load<Texture2D>("Menu/ContinueButton");
             newGameButton = Content.Load<Texture2D>("Menu/NewGameButton");
             infoWindow = Content.Load<Texture2D>("Menu/InfoWindow");
+            infoWindow2 = Content.Load<Texture2D>("Menu/InfoWindow2");
             camera = _camera;
-            mainMenuView = new MainMenuView(camera, continueButton, newGameButton, infoWindow);
+            mainMenuView = new MainMenuView(camera, continueButton, newGameButton, infoWindow, infoWindow2);
         }
 
         public void Update(Vector2 mousePos)

@@ -20,7 +20,7 @@ namespace GetToTheDoor
         Camera camera;
         MouseState lastMouseState;
         float timer = 0;
-        float timeUntilMenuToShow = 1f;
+        float timeUntilMenuToShow = 3f;
 
         GameState currentState;
         enum GameState
@@ -34,8 +34,6 @@ namespace GetToTheDoor
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
             graphics.ApplyChanges();
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -89,6 +87,11 @@ namespace GetToTheDoor
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 currentState = GameState.mainMenu;
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                timer = 0;
+                gameController.reloadLevel();
+            }
             if (currentState == GameState.mainMenu)
             {
                 var mouseState = Mouse.GetState();
@@ -118,7 +121,7 @@ namespace GetToTheDoor
                 var mouseState = Mouse.GetState();
                 if (lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    midController.Update(new Vector2(mouseState.Position.X, mouseState.Position.Y), gameController.isPlayerDead());
+                    midController.Update(new Vector2(mouseState.Position.X, mouseState.Position.Y), gameController.isPlayerDead(), gameController.nextLevelExists());
                     if(midController.pressedRestart)
                     {            
                         currentState = GameState.playing;
@@ -137,6 +140,11 @@ namespace GetToTheDoor
                         currentState = GameState.playing;
                         gameController.prevLevel();
                         midController.pressedPrev = false;
+                    }
+                    else if (midController.pressedMainMenu)
+                    {
+                        currentState = GameState.mainMenu;
+                        midController.pressedMainMenu = false;
                     }
                 }
                 lastMouseState = mouseState;
@@ -177,7 +185,7 @@ namespace GetToTheDoor
             }
             else if (currentState == GameState.midMenu)
             {
-                midController.Draw(gameController.isPlayerDead());
+                midController.Draw(gameController.isPlayerDead(), gameController.nextLevelExists());
             }
             spriteBatch.End();
             // TODO: Add your drawing code here

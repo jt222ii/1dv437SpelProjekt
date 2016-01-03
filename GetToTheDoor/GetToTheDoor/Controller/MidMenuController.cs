@@ -19,6 +19,7 @@ namespace GetToTheDoor.Controller
         bool _pressedNext = false;
         bool _pressedPrev = false;
         bool _pressedRestart = false;
+        bool _pressedMainMenu = false;
         public MidMenuController(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch _spriteBatch, Camera _camera)
         {
             Content = content;
@@ -30,10 +31,11 @@ namespace GetToTheDoor.Controller
             midMenuView = new MidMenuView(Content, camera, nextButton, prevButton, restartButton);
         }
 
-        public void Update(Vector2 mousePos, bool playerFailed)
+        public void Update(Vector2 mousePos, bool playerFailed, bool nextLevelExists)
         {
             var ButtonSize = midMenuView.getSize();
             var nextButtonPos = midMenuView.getNextButtonPos();
+            var mainMenuButtonPos = midMenuView.getNextButtonPos();
             var prevButtonPos = midMenuView.getPrevButtonPos();
             var restartButtonPos = midMenuView.getRestartButtonPos();
             if (
@@ -41,7 +43,7 @@ namespace GetToTheDoor.Controller
                 camera.convertToLogicalCoords(mousePos).X > nextButtonPos.X - ButtonSize.X / 2 &&
                 camera.convertToLogicalCoords(mousePos).Y < nextButtonPos.Y + ButtonSize.Y / 2 &&
                 camera.convertToLogicalCoords(mousePos).Y > nextButtonPos.Y - ButtonSize.Y / 2 &&
-                !playerFailed
+                !playerFailed && nextLevelExists
                )
             {
                 _pressedNext = true;
@@ -68,11 +70,22 @@ namespace GetToTheDoor.Controller
             {
                 _pressedRestart = true;
             }
+
+            else if (
+                camera.convertToLogicalCoords(mousePos).X < nextButtonPos.X + ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).X > nextButtonPos.X - ButtonSize.X / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y < nextButtonPos.Y + ButtonSize.Y / 2 &&
+                camera.convertToLogicalCoords(mousePos).Y > nextButtonPos.Y - ButtonSize.Y / 2 &&
+                !playerFailed && !nextLevelExists
+               )
+            {
+                _pressedMainMenu = true;
+            }
         }
 
-        public void Draw(bool isPlayerDead)
+        public void Draw(bool isPlayerDead, bool nextLevelExists)
         {
-            midMenuView.Draw(spriteBatch, isPlayerDead);
+            midMenuView.Draw(spriteBatch, isPlayerDead, nextLevelExists);
         }
 
         public bool pressedNext
@@ -106,6 +119,17 @@ namespace GetToTheDoor.Controller
             set
             {
                 _pressedRestart = value;
+            }
+        }
+        public bool pressedMainMenu
+        {
+            get
+            {
+                return _pressedMainMenu;
+            }
+            set
+            {
+                _pressedMainMenu = value;
             }
         }
     }

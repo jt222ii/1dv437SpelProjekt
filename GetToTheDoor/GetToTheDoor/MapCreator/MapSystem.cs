@@ -36,7 +36,7 @@ namespace GetToTheDoor
         }
         public bool levelExists(int level)
         {
-            if(level >= 0 && levels[level] != null)
+            if(level >= 0 && levels.Count > level)
             {
                 return true;
             }

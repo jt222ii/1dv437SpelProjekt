@@ -10,13 +10,16 @@ namespace GetToTheDoor.View
 {
     class MainCharacterView
     {
-        Texture2D activeTexture, idleCharacterTexture, walkingCharacterTextureLeft, walkingCharacterTextureRight, deadCharacter;
+        Texture2D activeTexture, idleCharacterTexture, walkingCharacterTextureLeft, walkingCharacterTextureRight, deadCharacter, bloodDrop;
         MainCharacterModel characterModel;
         Vector2 textureCenter;
         Camera camera;
         Vector2 scale;
-        public MainCharacterView(Texture2D characterIdle, Texture2D characterWalkingLeft, Texture2D characterWalkingRight, Texture2D characterDead, MainCharacterModel mainModel, Camera _camera)
-        {        
+        List<CharacterBloodParticles> bloodParticles = new List<CharacterBloodParticles>();
+        Random rand = new Random();
+        public MainCharacterView(Texture2D characterIdle, Texture2D characterWalkingLeft, Texture2D characterWalkingRight, Texture2D characterDead, Texture2D BloodDrop, MainCharacterModel mainModel, Camera _camera)
+        {
+            bloodDrop = BloodDrop;
             idleCharacterTexture = characterIdle;
             walkingCharacterTextureLeft = characterWalkingLeft;
             walkingCharacterTextureRight = characterWalkingRight;
@@ -33,7 +36,15 @@ namespace GetToTheDoor.View
         {
             if(characterModel.isDead)
             {
+                bloodParticles.Add(new CharacterBloodParticles(bloodDrop, rand, spriteBatch, camera, characterModel.Position, 1f));
                 setDead();
+            }
+            if(bloodParticles.Count > 0)
+            {
+                foreach(CharacterBloodParticles particle in bloodParticles)
+                {
+                    particle.Draw(elapsedTime);
+                }
             }
             Vector2 characterVisualLocation = camera.convertToVisualCoords(characterModel.Position);
             spriteBatch.Draw(activeTexture, characterVisualLocation, null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
