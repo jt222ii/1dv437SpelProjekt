@@ -162,5 +162,10 @@ namespace GetToTheDoor.Model
         {
             acceleration.Y = baseGravity;
         }
+
+        public bool IsJumping
+        {
+            get { return isJumping; }
+        }
     }
 }

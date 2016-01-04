@@ -88,10 +88,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MapCreator\Tile.cs" />
     <Compile Include="MapCreator\MapSystem.cs" />
+    <Compile Include="View\AudioPlayer.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\CharacterBloodParticles.cs" />
     <Compile Include="View\MainCharacterView.cs" />
-    <Compile Include="View\MainCharViewAnimationsBackup.cs" />
     <Compile Include="View\MainMenuView.cs" />
     <Compile Include="View\MidMenuView.cs" />
   </ItemGroup>
@@ -130,6 +130,9 @@
     <Content Include="Content\Hazards\Shockwave2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\JumpSound.wav" />
+    <Content Include="Content\KeyPickup.wav" />
+    <Content Include="Content\LaserInterceptEgen.wav" />
     <Content Include="Content\Menu\ContinueButton.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -178,6 +181,7 @@
     <Content Include="Content\Hazards\TurretShot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Pixelland.mp3" />
     <Content Include="Content\Tiles\Tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

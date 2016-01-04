@@ -19,6 +19,7 @@ namespace GetToTheDoor
         List<Tile> tiles = new List<Tile>();
         List<Turret> turrets = new List<Turret>();
         List<SawBlade> sawBlades = new List<SawBlade>();
+        AudioPlayer audioPlayer;
         Key key;
         Door door;
         float tileSize = 0.5f;
@@ -26,8 +27,9 @@ namespace GetToTheDoor
 
         List<char[,]> levels = new List<char[,]>();
 
-        public MapSystem(ContentManager _content, Camera _camera, int selectedLevel)
+        public MapSystem(ContentManager _content, Camera _camera, int selectedLevel, AudioPlayer audioP)
         {
+            audioPlayer = audioP;
             content = _content;
             camera = _camera;
             LevelCreator levelCreator = new LevelCreator();
@@ -63,11 +65,11 @@ namespace GetToTheDoor
                     }
                     else if (levels[level][y, i] == '>')
                     {
-                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, true));
+                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, true, audioPlayer));
                     }
                     else if (levels[level][y, i] == '<')
                     {
-                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, false));
+                        turrets.Add(new Turret(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize, false, audioPlayer));
                     }
                     else if (levels[level][y, i] == '$')
                     {

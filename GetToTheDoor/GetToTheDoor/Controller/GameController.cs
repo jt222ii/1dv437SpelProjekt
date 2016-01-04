@@ -1,6 +1,7 @@
 ﻿using GetToTheDoor.Model;
 using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,18 +21,17 @@ namespace GetToTheDoor.Controller
         MapSystem mapSystem;
         Texture2D idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, turretLeft, bloodDrop;
         SpriteBatch spriteBatch;
+        AudioPlayer audioPlayer;
         int selectedLevel = 0;
         bool justFinishedLevel = false;
-        public GameController(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch _spriteBatch, Camera _camera)
+        bool justDied = false;
+
+        public GameController(ContentManager content, GraphicsDeviceManager graphics, SpriteBatch _spriteBatch, Camera _camera, AudioPlayer audioP)
         {
             Content = content;
             spriteBatch = _spriteBatch;
 
-            //walkingLeftCharacter = Content.Load<Texture2D>("Character/WalkLeft2");
-            //walkingRightCharacter = Content.Load<Texture2D>("Character/WalkRight2");
-            //idleCharacter = Content.Load<Texture2D>("Character/Idle2");
-            //deadChar = Content.Load<Texture2D>("Character/DeathSheet");
-
+            audioPlayer = audioP;
             walkingLeftCharacter = Content.Load<Texture2D>("Character/BoxLeft");
             walkingRightCharacter = Content.Load<Texture2D>("Character/BoxRight");
             idleCharacter = Content.Load<Texture2D>("Character/BoxIdle");
@@ -39,14 +39,21 @@ namespace GetToTheDoor.Controller
             bloodDrop = Content.Load<Texture2D>("Character/BloodParticle");
             turretLeft = Content.Load<Texture2D>("Hazards/TurretLeft");
             camera = _camera;
-            mapSystem = new MapSystem(Content, camera, selectedLevel);
+            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer);
             charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);
         }
         public void Update(GameTime gameTime)
         {
+            
+            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds, charModel);  
+            
+            if(charModel.isDead && justDied == false)
+            {
+                justDied = true;
+                audioPlayer.Death();
+            }
 
-            mapSystem.UpdateHazards((float)gameTime.ElapsedGameTime.TotalSeconds, charModel);
             if (Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Left))
             {
                 charModel.stopMoving();
@@ -67,33 +74,38 @@ namespace GetToTheDoor.Controller
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                charModel.jump();
+                if(!charModel.IsJumping && !charModel.isDead)
+                {
+                    charModel.jump();
+                    audioPlayer.jump();
+                }
             }
             charModel.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
-            Tile landedOnTile = mapSystem.landsOnTile(charModel);
-            if (landedOnTile != null)
+            Tile tileCollidedWith = mapSystem.landsOnTile(charModel);
+            if (tileCollidedWith != null)
             {
-                charModel.landOnTile(landedOnTile);
+                charModel.landOnTile(tileCollidedWith);
             }
             else
             {
                 charModel.fall();
             }
-            Tile tileHitFromBelow = mapSystem.hitsHeadOnTile(charModel);
-            if (tileHitFromBelow != null)
+            tileCollidedWith = mapSystem.hitsHeadOnTile(charModel);
+            if (tileCollidedWith != null)
             {
-                charModel.hitHeadOnTile(tileHitFromBelow);
+                charModel.hitHeadOnTile(tileCollidedWith);
             }
 
-            Tile collidedTile = mapSystem.hitsTileOnX(charModel);
-            if (collidedTile != null)
+            tileCollidedWith = mapSystem.hitsTileOnX(charModel);
+            if (tileCollidedWith != null)
             {
-                charModel.collideX(collidedTile);
+                charModel.collideX(tileCollidedWith);
             }
 
             if(mapSystem.playerGetsTheKey(charModel))
             {
+                audioPlayer.keyPickup();
                 charModel.HasKey = true;
             }
             if (mapSystem.playerUnlocksDoor(charModel))
@@ -104,11 +116,12 @@ namespace GetToTheDoor.Controller
         public void restart()
         {
             selectedLevel = 0;
-            reloadLevel();
+            loadLevel();
         }
-        public void reloadLevel()
+        public void loadLevel()
         {
-            mapSystem = new MapSystem(Content, camera, selectedLevel);
+            justDied = false;
+            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer);
             charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);
         }
@@ -117,9 +130,7 @@ namespace GetToTheDoor.Controller
             if(nextLevelExists())
             {
                 selectedLevel++;
-                mapSystem = new MapSystem(Content, camera, selectedLevel);
-                charModel = new MainCharacterModel(mapSystem);
-                charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);
+                loadLevel();
             }
         }
         public void prevLevel()
@@ -128,9 +139,7 @@ namespace GetToTheDoor.Controller
             {
                 selectedLevel--;
             }
-            mapSystem = new MapSystem(Content, camera, selectedLevel);
-            charModel = new MainCharacterModel(mapSystem);
-            charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);          
+            loadLevel();        
         }
         /// <summary>
         /// This is called when the game should draw itself.

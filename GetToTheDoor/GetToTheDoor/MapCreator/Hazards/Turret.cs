@@ -13,6 +13,7 @@ namespace GetToTheDoor.MapCreator.Hazards
     class Turret
     {
         Texture2D texture, bulletTexture, shockWave;
+        AudioPlayer audioPlayer;
         Vector2 position;
         Camera camera;
         Vector2 textureCenter;
@@ -24,8 +25,9 @@ namespace GetToTheDoor.MapCreator.Hazards
 
         List<TurretBullet> bullets = new List<TurretBullet>();
         List<BulletHitParticles> particles = new List<BulletHitParticles>();
-        public Turret(ContentManager Content, Camera _camera, Vector2 pos, float size, bool turnedRight)
+        public Turret(ContentManager Content, Camera _camera, Vector2 pos, float size, bool turnedRight, AudioPlayer audioP)
         {
+            audioPlayer = audioP;
             _turnedRight = turnedRight;
             shockWave = Content.Load<Texture2D>("Hazards/Shockwave2");
             bulletTexture = Content.Load<Texture2D>("Hazards/TurretShot");
@@ -63,7 +65,7 @@ namespace GetToTheDoor.MapCreator.Hazards
             timer += time;
             if(timer >= fireRate)
             {
-                bullets.Add(new TurretBullet(camera, position, _turnedRight, bulletTexture));
+                bullets.Add(new TurretBullet(camera, position, _turnedRight, bulletTexture, audioPlayer));
                 timer = 0;
             }
             List<TurretBullet> bulletsToDelete = new List<TurretBullet>();

@@ -4,6 +4,7 @@ using GetToTheDoor.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GetToTheDoor
 {
@@ -19,8 +20,11 @@ namespace GetToTheDoor
         SpriteBatch spriteBatch;
         Camera camera;
         MouseState lastMouseState;
+        AudioPlayer audioPlayer;
         float timer = 0;
         float timeUntilMenuToShow = 3f;
+
+        
 
         GameState currentState;
         enum GameState
@@ -38,6 +42,7 @@ namespace GetToTheDoor
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
             currentState = GameState.mainMenu;
+            audioPlayer = new AudioPlayer(Content);
         }
 
         /// <summary>
@@ -58,15 +63,13 @@ namespace GetToTheDoor
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
-
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+        {      
+            spriteBatch = new SpriteBatch(GraphicsDevice);          
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            gameController = new GameController(Content, graphics, spriteBatch, camera);
+            gameController = new GameController(Content, graphics, spriteBatch, camera, audioPlayer);
             menuController = new MenuController(Content, graphics, spriteBatch, camera);
             midController = new MidMenuController(Content, graphics, spriteBatch, camera);
-            // TODO: use this.Content to load your game content here
+
         }
 
         /// <summary>
@@ -90,7 +93,7 @@ namespace GetToTheDoor
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 timer = 0;
-                gameController.reloadLevel();
+                gameController.loadLevel();
             }
             if (currentState == GameState.mainMenu)
             {
@@ -125,7 +128,7 @@ namespace GetToTheDoor
                     if(midController.pressedRestart)
                     {            
                         currentState = GameState.playing;
-                        gameController.reloadLevel();
+                        gameController.loadLevel();
                         midController.pressedRestart = false;
                     }
                     else if (midController.pressedNext && !gameController.isPlayerDead())

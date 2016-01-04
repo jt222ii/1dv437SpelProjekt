@@ -18,8 +18,9 @@ namespace GetToTheDoor.MapCreator.Hazards
         Vector2 size = new Vector2(0.5f, 0.5f);
         Vector2 scale;
         bool hasCollided = false;
-        public TurretBullet(Camera _camera, Vector2 pos, bool turnedRight, Texture2D bulletTexture)
+        public TurretBullet(Camera _camera, Vector2 pos, bool turnedRight, Texture2D bulletTexture, AudioPlayer audioPlayer)
         {
+            audioPlayer.turretShot();
             texture = bulletTexture;
             camera = _camera;
             position = pos;
