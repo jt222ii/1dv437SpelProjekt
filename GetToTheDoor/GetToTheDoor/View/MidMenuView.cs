@@ -65,7 +65,6 @@ namespace GetToTheDoor.View
             }
             else if(!isPlayerDead && !nextLevelExists)
             {
-                Console.WriteLine("aeasdasd");
                 spriteBatch.Draw(victoryText, camera.convertToVisualCoords(victoryTextPos), null, Color.White, 0, textureCenter, scale*2, SpriteEffects.None, 1f);
                 spriteBatch.Draw(mainMenu, nextVisualLoc, null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
             }

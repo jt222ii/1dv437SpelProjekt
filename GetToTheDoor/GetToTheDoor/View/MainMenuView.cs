@@ -63,7 +63,7 @@ namespace GetToTheDoor.View
             spriteBatch.Draw(newGameButton, camera.convertToVisualCoords(newGameButtonPos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
             spriteBatch.Draw(infoWindow, camera.convertToVisualCoords(infoWindowPos), null, Color.White, 0, infoWCenter, infoscale, SpriteEffects.None, 1f);
             spriteBatch.Draw(infoWindow2, camera.convertToVisualCoords(infoWindow2Pos), null, Color.White, 0, infoW2Center, infoscale, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(spriteFont, "Music:\n\"Pixelland\" Kevin MacLeod (incompetech.com) \nLicensed under Creative Commons: By Attribution 3.0 \nhttp://creativecommons.org/licenses/by/3.0/", creditSongPos, Color.Black);
+            spriteBatch.DrawString(spriteFont, "Music:\n\"Pixelland\" Kevin MacLeod (incompetech.com) \nLicensed under Creative Commons: By Attribution 3.0 \nhttp://creativecommons.org/licenses/by/3.0/\nDeathSound from: http://www.freesfx.co.uk", creditSongPos, Color.Black);
         }
 
 

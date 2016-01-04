@@ -133,7 +133,6 @@ namespace GetToTheDoor
                     }
                     else if (midController.pressedNext && !gameController.isPlayerDead())
                     {
-                        System.Console.WriteLine(gameController.isPlayerDead());
                         currentState = GameState.playing;
                         gameController.nextLevel();
                         midController.pressedNext = false;
