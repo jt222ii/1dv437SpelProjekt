@@ -43,3 +43,9 @@
 /processorParam:Quality=Best
 /build:Deathsound2.wav
 
+#begin UrbanFontHoho.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:UrbanFontHoho.spritefont
+
