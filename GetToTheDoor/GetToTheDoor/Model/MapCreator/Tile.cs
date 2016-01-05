@@ -12,28 +12,16 @@ namespace GetToTheDoor
 {
     class Tile
     {
-        Texture2D texture;
         Vector2 position;
-        Camera camera;
-        Vector2 textureCenter;
         Vector2 tileSize;
-        Vector2 scale;
 
-        public Tile(ContentManager Content, Camera _camera, Vector2 pos, float size)
+
+        public Tile(ContentManager Content, Vector2 pos, float size)
         {
             tileSize = new Vector2(size, size);
-            texture = Content.Load<Texture2D>("Tiles/Tile");
             position = pos;
-            camera = _camera;
-            textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);
-            scale = camera.Scale(tileSize, texture.Width, texture.Height);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 pos = position;
-            spriteBatch.Draw(texture, camera.convertToVisualCoords(pos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
-        }
         public Vector2 Size
         {
             get

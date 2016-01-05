@@ -8,21 +8,21 @@ using System.Text;
 
 namespace GetToTheDoor.MapCreator.Hazards
 {
-    class BulletHitParticles
+    class BulletShockWave
     {
         private Vector2 position;
         private Camera _camera;
         private Texture2D texture;
-        private float scale;
+        private Vector2 scale;
         private float fade = 1;
         private Vector2 particleMinSize = new Vector2(0,0);
-        private Vector2 particleMaxSize = new Vector2(0.8f, 0.8f);
+        private Vector2 particleMaxSize = new Vector2(5f, 5f);
         private float maxTimeToLive = 0.8f;
         private float timeLived = 0;
         private Vector2 particleSize;
         private float lifePercent;
 
-        public BulletHitParticles(Texture2D shockwaveTexture, Camera camera, float Scale, Vector2 startLocation)
+        public BulletShockWave(Texture2D shockwaveTexture, Camera camera, Vector2 Scale, Vector2 startLocation)
         {
             position = startLocation;
             scale = Scale;

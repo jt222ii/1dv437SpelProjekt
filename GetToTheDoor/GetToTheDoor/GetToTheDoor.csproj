@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{31EA6D9E-09BB-40FF-B916-27426D2EC7B7}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GetToTheDoor</RootNamespace>
     <AssemblyName>GetToTheDoor</AssemblyName>
@@ -76,23 +76,24 @@
     <Compile Include="Controller\MasterController.cs" />
     <Compile Include="Controller\MenuController.cs" />
     <Compile Include="Controller\MidMenuController.cs" />
-    <Compile Include="MapCreator\Door.cs" />
-    <Compile Include="MapCreator\Hazards\BulletHitParticles.cs" />
-    <Compile Include="MapCreator\Hazards\SawBlade.cs" />
-    <Compile Include="MapCreator\Hazards\Turret.cs" />
-    <Compile Include="MapCreator\Hazards\TurretBullet.cs" />
-    <Compile Include="MapCreator\Key.cs" />
-    <Compile Include="MapCreator\LevelCreator.cs" />
+    <Compile Include="Model\MapCreator\Door.cs" />
+    <Compile Include="View\MapView\BulletShockWave.cs" />
+    <Compile Include="Model\MapCreator\Hazards\SawBlade.cs" />
+    <Compile Include="Model\MapCreator\Hazards\Turret.cs" />
+    <Compile Include="Model\MapCreator\Hazards\TurretBullet.cs" />
+    <Compile Include="Model\MapCreator\Key.cs" />
+    <Compile Include="Model\MapCreator\LevelCreator.cs" />
     <Compile Include="Model\MainCharacterModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MapCreator\Tile.cs" />
-    <Compile Include="MapCreator\MapSystem.cs" />
+    <Compile Include="Model\MapCreator\Tile.cs" />
+    <Compile Include="Controller\MapSystem.cs" />
     <Compile Include="View\AudioPlayer.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\CharacterBloodParticles.cs" />
     <Compile Include="View\MainCharacterView.cs" />
     <Compile Include="View\MainMenuView.cs" />
+    <Compile Include="View\MapView\MapView.cs" />
     <Compile Include="View\MidMenuView.cs" />
   </ItemGroup>
   <ItemGroup>

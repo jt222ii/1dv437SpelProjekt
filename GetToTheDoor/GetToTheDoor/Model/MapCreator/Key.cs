@@ -12,27 +12,13 @@ namespace GetToTheDoor
 {
     class Key
     {
-        Texture2D texture;
         Vector2 position;
-        Camera camera;
-        Vector2 textureCenter;
         Vector2 tileSize;
-        Vector2 scale;
 
-        public Key(ContentManager Content, Camera _camera, Vector2 pos, float size)
+        public Key(Vector2 pos, float size)
         {
-            tileSize = new Vector2(size, size);
-            texture = Content.Load<Texture2D>("Nyckel");
+            tileSize = new Vector2(size, size);         
             position = pos;
-            camera = _camera;
-            textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);
-            scale = camera.Scale(tileSize, texture.Width, texture.Height);
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 pos = position;
-            spriteBatch.Draw(texture, camera.convertToVisualCoords(pos), null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
         }
 
         public bool collides(MainCharacterModel charModel)
@@ -51,6 +37,21 @@ namespace GetToTheDoor
                 return true;
             }
             return false;
+        }
+        public Vector2 Size
+        {
+            get
+            {
+                return tileSize;
+            }
+        }
+
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
         }
     }
 }

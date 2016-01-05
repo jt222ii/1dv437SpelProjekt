@@ -11,25 +11,18 @@ namespace GetToTheDoor.MapCreator.Hazards
 {
     class TurretBullet
     {
-        Camera camera;
-        Vector2 position, textureCenter;
+        Vector2 position;
         Vector2 Velocity = new Vector2(-5f, 0f);
-        Texture2D texture;
         Vector2 size = new Vector2(0.5f, 0.5f);
-        Vector2 scale;
-        bool hasCollided = false;
-        public TurretBullet(Camera _camera, Vector2 pos, bool turnedRight, Texture2D bulletTexture, AudioPlayer audioPlayer)
+        bool justCollided = false;
+        public TurretBullet(Vector2 pos, bool turnedRight, AudioPlayer audioPlayer)
         {
             audioPlayer.turretShot();
-            texture = bulletTexture;
-            camera = _camera;
             position = pos;
             if(turnedRight)
             {
                 Velocity.X = -Velocity.X; 
             }
-            textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);
-            scale = camera.Scale(size, texture.Width, texture.Height);
         }
 
         public Vector2 Position
@@ -37,20 +30,22 @@ namespace GetToTheDoor.MapCreator.Hazards
             get { return position; }
         }
         
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 characterVisualLocation = camera.convertToVisualCoords(position);
-            spriteBatch.Draw(texture, characterVisualLocation, null, Color.White, 0, textureCenter, scale, SpriteEffects.None, 1f);
-        }
 
         public void Update(float elapsedTime)
         {
             position = elapsedTime * Velocity + position;
         }
         
-        public bool bulletHasCollided()
+        public bool JustCollided
         {
-            return hasCollided;
+            get
+            {
+                return justCollided;
+            }
+            set
+            {
+                justCollided = false;
+            }
         }
 
         public bool bulletCollidesWithPlayer(MainCharacterModel charModel)
@@ -66,7 +61,7 @@ namespace GetToTheDoor.MapCreator.Hazards
                 charModel.Position.X - charModel.getSize.X / 2 < maxX
                 )
             {
-                hasCollided = true;
+                justCollided = true;
                 return true;
             }
             else

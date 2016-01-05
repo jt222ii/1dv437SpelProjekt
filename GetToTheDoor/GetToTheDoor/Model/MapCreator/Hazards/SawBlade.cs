@@ -12,22 +12,16 @@ namespace GetToTheDoor.MapCreator.Hazards
 {
     class SawBlade
     {
-        Vector2 tileSize, textureCenter, position;
-        Camera camera;
-        Texture2D texture;
-        Vector2 scale;
+        Vector2 tileSize, position;
         float rotation = 0;
         Vector2 Velocity = new Vector2(0f, 2f);
         float sawminX, sawmaxX, sawminY, sawmaxY;
-        public SawBlade(ContentManager Content, Camera _camera, Vector2 pos, float size)
+        public SawBlade(ContentManager Content, Vector2 pos, float size)
         {
 
-            tileSize = new Vector2(size, size);
-            texture = Content.Load<Texture2D>("Hazards/SawBlade");
+            tileSize = new Vector2(size, size);         
             position = pos;
-            camera = _camera;
-            textureCenter = new Vector2(texture.Width / 2, texture.Height / 2);
-            scale = camera.Scale(tileSize, texture.Width, texture.Height);
+
         }
 
         public void Update(float elapsedTime, List<Tile> tiles, MainCharacterModel charModel)
@@ -68,11 +62,29 @@ namespace GetToTheDoor.MapCreator.Hazards
             {
                 charModel.isDead = true;
             }
-            }
+        }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {        
-          spriteBatch.Draw(texture, camera.convertToVisualCoords(position), null, Color.White, rotation, textureCenter, scale, SpriteEffects.None, 1f); ;
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
+        }
+        public Vector2 Size
+        {
+            get
+            {
+                return tileSize;
+            }
+        }
+
+        public float Rotation
+        {
+            get
+            {
+                return rotation;
+            }
         }
     }
 }

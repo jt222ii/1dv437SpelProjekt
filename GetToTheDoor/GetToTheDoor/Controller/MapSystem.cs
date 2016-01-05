@@ -2,6 +2,7 @@
 using GetToTheDoor.MapCreator.Hazards;
 using GetToTheDoor.Model;
 using GetToTheDoor.View;
+using GetToTheDoor.View.MapObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,8 +28,11 @@ namespace GetToTheDoor
 
         List<char[,]> levels = new List<char[,]>();
 
-        public MapSystem(ContentManager _content, Camera _camera, int selectedLevel, AudioPlayer audioP)
+        MapView mapView;
+
+        public MapSystem(ContentManager _content, Camera _camera, int selectedLevel, AudioPlayer audioP, SpriteBatch spriteBatch)
         {
+            mapView = new MapView(_content, _camera, spriteBatch);
             audioPlayer = audioP;
             content = _content;
             camera = _camera;
@@ -53,15 +57,15 @@ namespace GetToTheDoor
                 {                                   
                     if (levels[level][y, i] == '#')
                     {
-                        tiles.Add(new Tile(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
+                        tiles.Add(new Tile(content, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
                     }
                     else if (levels[level][y, i] == 'D')
                     {
-                        door = new Door(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
+                        door = new Door(new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
                     }
                     else if (levels[level][y, i] == 'K')
                     {
-                        key = new Key(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
+                        key = new Key(new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize);
                     }
                     else if (levels[level][y, i] == '>')
                     {
@@ -77,7 +81,7 @@ namespace GetToTheDoor
                     }
                     else if (levels[level][y, i] == '*')
                     {
-                        sawBlades.Add(new SawBlade(content, camera, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
+                        sawBlades.Add(new SawBlade(content, new Vector2(tileSize / 2 + tileSize * i, tileSize / 2 + tileSize * y), tileSize));
                     }
                 
                 }
@@ -94,20 +98,20 @@ namespace GetToTheDoor
         {
             if (key != null)
             {
-                key.Draw(spriteBatch);
+                mapView.DrawKey(key);
             }
-            door.Draw(spriteBatch);
-            foreach(Tile tile in tiles)
+            mapView.DrawDoor(door);
+            foreach (Tile tile in tiles)
             {
-                tile.Draw(spriteBatch);
+                mapView.DrawTile(tile);
             }
-            foreach(Turret turret in turrets)
+            foreach (Turret turret in turrets)
             {
-                turret.Draw(spriteBatch, elapsedTime);
+                mapView.DrawTurret(turret, elapsedTime);
             }
             foreach (SawBlade sawBlade in sawBlades)
             {
-                sawBlade.Draw(spriteBatch);
+                mapView.DrawSaw(sawBlade);
             }
 
         }

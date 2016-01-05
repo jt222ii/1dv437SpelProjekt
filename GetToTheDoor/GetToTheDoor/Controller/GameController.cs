@@ -39,7 +39,7 @@ namespace GetToTheDoor.Controller
             bloodDrop = Content.Load<Texture2D>("Character/BloodParticle");
             turretLeft = Content.Load<Texture2D>("Hazards/TurretLeft");
             camera = _camera;
-            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer);
+            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer, spriteBatch);
             charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);
         }
@@ -121,7 +121,7 @@ namespace GetToTheDoor.Controller
         public void loadLevel()
         {
             justDied = false;
-            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer);
+            mapSystem = new MapSystem(Content, camera, selectedLevel, audioPlayer, spriteBatch);
             charModel = new MainCharacterModel(mapSystem);
             charView = new MainCharacterView(idleCharacter, walkingLeftCharacter, walkingRightCharacter, deadChar, bloodDrop, charModel, camera);
         }
