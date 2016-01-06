@@ -92,8 +92,12 @@ namespace GetToTheDoor
                 currentState = GameState.mainMenu;
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                timer = 0;
-                gameController.loadLevel();
+                if (currentState == GameState.playing || currentState == GameState.midMenu)
+                {
+                    timer = 0;
+                    gameController.loadLevel();
+                    currentState = GameState.playing;
+                }      
             }
             if (currentState == GameState.mainMenu)
             {
