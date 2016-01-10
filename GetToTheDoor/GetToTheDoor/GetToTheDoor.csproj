@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{31EA6D9E-09BB-40FF-B916-27426D2EC7B7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GetToTheDoor</RootNamespace>
     <AssemblyName>GetToTheDoor</AssemblyName>
