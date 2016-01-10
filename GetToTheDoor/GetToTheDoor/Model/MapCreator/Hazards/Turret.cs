@@ -50,6 +50,10 @@ namespace GetToTheDoor.MapCreator.Hazards
                     charModel.isDead = true;
                     bulletsToDelete.Add(bullet);
                 }
+                else if(bullet.bulletOutOfBounds())
+                {
+                    bulletsToDelete.Add(bullet);
+                }
             }
             if (bulletsToDelete != null)
             {

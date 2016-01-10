@@ -14,7 +14,6 @@ namespace GetToTheDoor.MapCreator.Hazards
         Vector2 position;
         Vector2 Velocity = new Vector2(-5f, 0f);
         Vector2 size = new Vector2(0.5f, 0.5f);
-        bool justCollided = false;
         public TurretBullet(Vector2 pos, bool turnedRight, AudioPlayer audioPlayer)
         {
             audioPlayer.turretShot();
@@ -35,19 +34,11 @@ namespace GetToTheDoor.MapCreator.Hazards
         {
             position = elapsedTime * Velocity + position;
         }
-        
-        public bool JustCollided
-        {
-            get
-            {
-                return justCollided;
-            }
-            set
-            {
-                justCollided = false;
-            }
-        }
 
+        public bool bulletOutOfBounds()
+        {
+            return position.X > 16 || position.X < 0;
+        }
         public bool bulletCollidesWithPlayer(MainCharacterModel charModel)
         {
             float minX, maxX, minY, maxY;
@@ -61,7 +52,6 @@ namespace GetToTheDoor.MapCreator.Hazards
                 charModel.Position.X - charModel.getSize.X / 2 < maxX
                 )
             {
-                justCollided = true;
                 return true;
             }
             else

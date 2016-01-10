@@ -15,7 +15,6 @@ namespace GetToTheDoor
         Vector2 position;
         Vector2 tileSize;
 
-
         public Tile(ContentManager Content, Vector2 pos, float size)
         {
             tileSize = new Vector2(size, size);
